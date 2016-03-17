@@ -9,56 +9,58 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="shoppingCart")
+@Table(name="shoppingcart")
 public class shoppingCartEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "users_id", nullable = false)
-	private userEntitie users_id;
-	private int products_id;
-	private int rating;
-	private String date;
+	@JoinColumn(name = "user_id", nullable = false)
+	private userEntitie user_id;
+	private int product_id;
+	private int quantity;
+	private String type;
 	
 	public shoppingCartEntitie(){}
 	
-	public shoppingCartEntitie(int id, userEntitie users_id, int products_id, int rating, String date) {
+	public shoppingCartEntitie(int id, userEntitie users_id, int products_id, int quantity, String type) {
 		super();
 		this.id = id;
-		this.users_id = users_id;
-		this.products_id = products_id;
-		this.rating = rating;
-		this.date = date;
+		this.user_id = users_id;
+		this.product_id = products_id;
+		this.quantity = quantity;
+		this.type = type;
 	}
 	
 	public userEntitie getUsers_id() {
-		return users_id;
+		return user_id;
 	}
 	
 	public void setUsers_id(userEntitie users_id) {
-		this.users_id = users_id;
+		this.user_id = users_id;
 	}
 	public int getProducts_id() {
-		return products_id;
+		return product_id;
 	}
 	public void setProducts_id(int products_id) {
-		this.products_id = products_id;
+		this.product_id = products_id;
 	}
-	public int getRating() {
-		return rating;
+	public int getquantity() {
+		return quantity;
 	}
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setquantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public int getId() {
 		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

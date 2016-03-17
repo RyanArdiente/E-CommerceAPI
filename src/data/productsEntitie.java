@@ -25,7 +25,7 @@ public class productsEntitie
 	private String description;
 	private String brand;
 	private String name;
-	@OneToMany(mappedBy = "products_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
 	
 	

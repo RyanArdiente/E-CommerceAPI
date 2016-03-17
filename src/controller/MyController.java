@@ -28,7 +28,6 @@ public class MyController {
 		System.out.println("inside get user rout");
 		return mcdao.getAllUsers();
 		
-		
 	}
 
 }

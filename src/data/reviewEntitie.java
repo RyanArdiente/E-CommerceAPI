@@ -16,9 +16,9 @@ public class reviewEntitie
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "products_id", nullable = false)
-	private productsEntitie products_id;
-	private int userID;
+	@JoinColumn(name = "product_id", nullable = false)
+	private productsEntitie product_id;
+	private int user_id;
 	private String review;
 	private String rating;
 	private String date;
@@ -28,12 +28,12 @@ public class reviewEntitie
 		super();
 	}
 
-	public reviewEntitie(int id, productsEntitie  products_id, int userID, String review, String rating, String date)
+	public reviewEntitie(int id, productsEntitie  product_id, int user_id, String review, String rating, String date)
 	{
 		super();
 		this.id = id;
-		this.products_id = products_id;
-		this.userID = userID;
+		this.product_id = product_id;
+		this.user_id = user_id;
 		this.review = review;
 		this.rating = rating;
 		this.date = date;
@@ -48,19 +48,19 @@ public class reviewEntitie
 	}
 
 	/**
-	 * @return the products_id
+	 * @return the product_id
 	 */
-	public productsEntitie  getProducts_id()
+	public productsEntitie  getproduct_id()
 	{
-		return products_id;
+		return product_id;
 	}
 
 	/**
-	 * @return the userID
+	 * @return the user_id
 	 */
-	public int getUserID()
+	public int getuser_id()
 	{
-		return userID;
+		return user_id;
 	}
 
 	/**
@@ -88,19 +88,19 @@ public class reviewEntitie
 	}
 
 	/**
-	 * @param products_id the products_id to set
+	 * @param product_id the product_id to set
 	 */
-	public void setProducts_id(productsEntitie products_id)
+	public void setproduct_id(productsEntitie product_id)
 	{
-		this.products_id = products_id;
+		this.product_id = product_id;
 	}
 
 	/**
-	 * @param userID the userID to set
+	 * @param user_id the user_id to set
 	 */
-	public void setUserID(int userID)
+	public void setuser_id(int user_id)
 	{
-		this.userID = userID;
+		this.user_id = user_id;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class reviewEntitie
 	@Override
 	public String toString()
 	{
-		return "reviewEntitie [id=" + id + ", products_id=" + products_id + ", userID=" + userID + ", review=" + review
+		return "reviewEntitie [id=" + id + ", product_id=" + product_id + ", user_id=" + user_id + ", review=" + review
 				+ ", rating=" + rating + ", date=" + date + "]";
 	}
 	

@@ -16,6 +16,7 @@ public class MCDAO {
 	
 
 	public List<userEntitie> getAllUsers(){
+		System.out.println("inside DAO getAllUsers");
 		List<userEntitie> userList = (List<userEntitie>)em.createNamedQuery("getALL").getResultList();
 		return userList;
 	}

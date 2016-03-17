@@ -25,9 +25,9 @@ public class userEntitie
 	private String name;
 	private String email;
 	private String password;
-	@OneToMany(mappedBy = "users_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<addressEntitie> address = new ArrayList<>();
-	@OneToMany(mappedBy = "users_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<shoppingCartEntitie> cart = new ArrayList<>();
 	
 	public userEntitie(){}

@@ -15,25 +15,25 @@ public class addressEntitie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "users_id", nullable = false)
-	private userEntitie users_id;
+	@JoinColumn(name = "user_id", nullable = false)
+	private userEntitie user_id;
 	private String address;
 	private String type;
 	
 	public addressEntitie(){}
 	
-	public addressEntitie(int id, userEntitie users_id, String address, String type) {
+	public addressEntitie(int id, userEntitie user_id, String address, String type) {
 		super();
 		this.id = id;
-		this.users_id = users_id;
+		this.user_id = user_id;
 		this.address = address;
 		this.type = type;
 	}
-	public userEntitie getUsers_id() {
-		return users_id;
+	public userEntitie getuser_id() {
+		return user_id;
 	}
-	public void setUsers_id( userEntitie users_id) {
-		this.users_id = users_id;
+	public void setuser_id( userEntitie user_id) {
+		this.user_id = user_id;
 	}
 	public String getAddress() {
 		return address;
