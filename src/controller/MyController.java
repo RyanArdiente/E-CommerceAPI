@@ -27,7 +27,8 @@ public class MyController {
 	public List<userEntitie> getUser() {
 		System.out.println("inside get user rout");
 		return mcdao.getAllUsers();
-		
 	}
+	
+	
 
 }

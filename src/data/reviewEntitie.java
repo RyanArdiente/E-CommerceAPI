@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "review")
 public class reviewEntitie
 {
 	@Id
@@ -18,7 +18,9 @@ public class reviewEntitie
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "product_id", nullable = false)
 	private productsEntitie product_id;
-	private int user_id;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "user_id", nullable = false)
+	private userEntitie user_id;
 	private String review;
 	private String rating;
 	private String date;
@@ -28,7 +30,7 @@ public class reviewEntitie
 		super();
 	}
 
-	public reviewEntitie(int id, productsEntitie  product_id, int user_id, String review, String rating, String date)
+	public reviewEntitie(int id, productsEntitie  product_id, userEntitie  user_id, String review, String rating, String date)
 	{
 		super();
 		this.id = id;
@@ -58,7 +60,7 @@ public class reviewEntitie
 	/**
 	 * @return the user_id
 	 */
-	public int getuser_id()
+	public userEntitie  getuser_id()
 	{
 		return user_id;
 	}
@@ -98,7 +100,7 @@ public class reviewEntitie
 	/**
 	 * @param user_id the user_id to set
 	 */
-	public void setuser_id(int user_id)
+	public void setuser_id(userEntitie  user_id)
 	{
 		this.user_id = user_id;
 	}

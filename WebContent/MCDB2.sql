@@ -23,9 +23,6 @@ USE `mcdb` ;
 -- -----------------------------------------------------
 -- Table `products`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `products` ;
-
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `catagory` VARCHAR(45) NULL,
@@ -41,9 +38,6 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- Table `users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `users` ;
-
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
@@ -57,83 +51,78 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- Table `address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `address` ;
-
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `address` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `users_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `address` VARCHAR(45) NULL,
   `type` VARCHAR(45) NULL DEFAULT 'home',
-  PRIMARY KEY (`id`, `users_id`),
+  PRIMARY KEY (`id`, `user_id`),
   CONSTRAINT `fk_address_users1`
-    FOREIGN KEY (`users_id`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_address_users1_idx` ON `address` (`users_id` ASC);
+CREATE INDEX `fk_address_users1_idx` ON `address` (`user_id` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `shoppingCart`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `shoppingCart` ;
-
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `shoppingCart` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `productID` INT NULL,
-  `quantity` INT NULL,
   `type` VARCHAR(45) NULL DEFAULT 'shopping',
-  `users_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `users_id`),
+  `user_id` INT NOT NULL,
+  PRIMARY KEY (`id`, `user_id`),
   CONSTRAINT `fk_shoppingCart_users1`
-    FOREIGN KEY (`users_id`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_shoppingCart_users1_idx` ON `shoppingCart` (`users_id` ASC);
+CREATE INDEX `fk_shoppingCart_users1_idx` ON `shoppingCart` (`user_id` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `review`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `review` ;
-
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `review` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `userID` INT NULL,
-  `products_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   `rating` INT NULL,
-  `date` DATETIME NULL,
-  PRIMARY KEY (`id`, `products_id`),
-  CONSTRAINT `fk_review_products1`
-    FOREIGN KEY (`products_id`)
+  `date` DATE NULL,
+  `review` VARCHAR(95) NULL,
+  PRIMARY KEY (`id`, `product_id`, `user_id`),
+  CONSTRAINT `fk_review_product_id`
+    FOREIGN KEY (`product_id`)
     REFERENCES `products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
-CREATE INDEX `fk_review_products1_idx` ON `review` (`products_id` ASC);
+CREATE INDEX `fk_review_products1_idx` ON `review` (`product_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_review_users1_idx` ON `review` (`user_id` ASC);
 
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `employees`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `employees` ;
-
-SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `employees` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
@@ -143,6 +132,35 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `admin` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `shoppingCartItems`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `shoppingCartItems` (
+  `id` INT NOT NULL,
+  `shoppingCart_id` INT NOT NULL,
+  `products_id` INT NOT NULL,
+  `quantity` INT NULL,
+  PRIMARY KEY (`id`, `shoppingCart_id`, `products_id`),
+  CONSTRAINT `fk_shoppingCart_has_products_shoppingCart1`
+    FOREIGN KEY (`shoppingCart_id`)
+    REFERENCES `shoppingCart` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shoppingCart_has_products_products1`
+    FOREIGN KEY (`products_id`)
+    REFERENCES `products` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+CREATE INDEX `fk_shoppingCart_has_products_products1_idx` ON `shoppingCartItems` (`products_id` ASC);
+
+SHOW WARNINGS;
+CREATE INDEX `fk_shoppingCart_has_products_shoppingCart1_idx` ON `shoppingCartItems` (`shoppingCart_id` ASC);
 
 SHOW WARNINGS;
 

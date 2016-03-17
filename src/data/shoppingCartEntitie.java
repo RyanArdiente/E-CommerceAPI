@@ -1,10 +1,14 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -17,18 +21,15 @@ public class shoppingCartEntitie {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private userEntitie user_id;
-	private int product_id;
-	private int quantity;
 	private String type;
-	
+	@ManyToMany(mappedBy = "cartList")
+	private List<productsEntitie> productsList = new ArrayList<>();
 	public shoppingCartEntitie(){}
 	
-	public shoppingCartEntitie(int id, userEntitie users_id, int products_id, int quantity, String type) {
+	public shoppingCartEntitie(int id, userEntitie users_id, String type) {
 		super();
 		this.id = id;
 		this.user_id = users_id;
-		this.product_id = products_id;
-		this.quantity = quantity;
 		this.type = type;
 	}
 	
@@ -38,18 +39,6 @@ public class shoppingCartEntitie {
 	
 	public void setUsers_id(userEntitie users_id) {
 		this.user_id = users_id;
-	}
-	public int getProducts_id() {
-		return product_id;
-	}
-	public void setProducts_id(int products_id) {
-		this.product_id = products_id;
-	}
-	public int getquantity() {
-		return quantity;
-	}
-	public void setquantity(int quantity) {
-		this.quantity = quantity;
 	}
 	public int getId() {
 		return id;
@@ -62,6 +51,21 @@ public class shoppingCartEntitie {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public List<productsEntitie> getProductsList() {
+		return productsList;
+	}
+
+	public void setProductsList(List<productsEntitie> productsList) {
+		this.productsList = productsList;
+	}
+
+	@Override
+	public String toString() {
+		return "shoppingCartEntitie [id=" + id + ", user_id=" + user_id + ", type=" + type + ", productsList="
+				+ productsList + "]";
+	}
+	
 	
 	
 

@@ -21,4 +21,20 @@ public class MCDAO {
 		return userList;
 	}
 	
+	public userEntitie getUserById(int id){
+		System.out.println("inside DAO Id");
+		userEntitie user = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", id).getSingleResult();
+		return user;
+	}
+	public userEntitie getUserByEmail(String email){
+		System.out.println("inside DAO Email");
+		userEntitie user = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", email).getSingleResult();
+		return user;
+	}
+	public userEntitie getUserByPassword(String password){
+		System.out.println("inside DAO Password");
+		userEntitie user = (userEntitie)em.createNamedQuery("getUserByPassword").setParameter("password", password).getSingleResult();
+		return user;
+	}
+	
 }

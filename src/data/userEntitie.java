@@ -15,10 +15,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@NamedQueries({ @NamedQuery(name = "getALL", query = "select u from userEntitie u")})
+@NamedQueries({ @NamedQuery(name = "getALL", query = "select u from userEntitie u"),
+		@NamedQuery(name = "getUserById", query = "select u from userEntitie u where u.id = :id"),
+		@NamedQuery(name = "getUserByEmail", query = "select u from userEntitie u where u.email = :email"),
+		@NamedQuery(name = "getUserByPassword", query = "select u from userEntitie u where u.password = :password") })
 
-public class userEntitie
-{
+public class userEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,11 +31,13 @@ public class userEntitie
 	private List<addressEntitie> address = new ArrayList<>();
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<shoppingCartEntitie> cart = new ArrayList<>();
-	
-	public userEntitie(){}
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+	private List<reviewEntitie> review = new ArrayList<>();
 
-	public userEntitie(int id, String name, String email, String password)
-	{
+	public userEntitie() {
+	}
+
+	public userEntitie(int id, String name, String email, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,56 +48,52 @@ public class userEntitie
 	/**
 	 * @return the id
 	 */
-	public int getId()
-	{
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @return the name
 	 */
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
 	/**
 	 * @return the email
 	 */
-	public String getEmail()
-	{
+	public String getEmail() {
 		return email;
 	}
 
 	/**
 	 * @return the password
 	 */
-	public String getPassword()
-	{
+	public String getPassword() {
 		return password;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
-	public void setName(String name)
-	{
+	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
-	public void setEmail(String email)
-	{
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *            the password to set
 	 */
-	public void setPassword(String password)
-	{
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -104,57 +104,57 @@ public class userEntitie
 	public void setAddress(List<addressEntitie> address) {
 		this.address = address;
 	}
+
 	public List<shoppingCartEntitie> getCart() {
 		return cart;
 	}
-	
+
 	public void setCart(List<shoppingCartEntitie> cart) {
 		this.cart = cart;
 	}
 
-	public void addCart(shoppingCartEntitie cart)
-    {
-        if (!getCart().contains(cart))
-        {
-            getCart().add(cart);
-        }
-    }
-    public void removeCart(shoppingCartEntitie cart)
-    {
-        if (getCart().contains(cart))
-        {
-            getCart().remove(cart);
+	public List<reviewEntitie> getReview() {
+		return review;
+	}
 
-        }
-    }
-    public void addAddress(addressEntitie address)
-    {
-    	if (!getAddress().contains(address))
-    	{
-    		getAddress().add(address);
-    	}
-    }
-    public void removeAddress(addressEntitie address)
-    {
-    	if (getAddress().contains(address))
-    	{
-    		getAddress().remove(address);
-    		
-    	}
-    }
-	
+	public void setReview(List<reviewEntitie> review) {
+		this.review = review;
+	}
 
-	/* (non-Javadoc)
+	public void addCart(shoppingCartEntitie cart) {
+		if (!getCart().contains(cart)) {
+			getCart().add(cart);
+		}
+	}
+
+	public void removeCart(shoppingCartEntitie cart) {
+		if (getCart().contains(cart)) {
+			getCart().remove(cart);
+
+		}
+	}
+
+	public void addAddress(addressEntitie address) {
+		if (!getAddress().contains(address)) {
+			getAddress().add(address);
+		}
+	}
+
+	public void removeAddress(addressEntitie address) {
+		if (getAddress().contains(address)) {
+			getAddress().remove(address);
+
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "userEntitie [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
-	
-	
-	
 
-	
 }
