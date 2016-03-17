@@ -16,6 +16,7 @@ public class employeesEntitie {
 	private String title;
 	private String email;
 	private String bio;
+	private boolean admin;
 	
 	
 	public employeesEntitie(){}
@@ -30,6 +31,13 @@ public class employeesEntitie {
 		this.bio = bio;
 	}
 	
+	public boolean isAdmin() {
+		return admin;
+	}
+	
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
 	public String getName() {
 		return name;
 	}
