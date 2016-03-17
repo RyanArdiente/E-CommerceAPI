@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,23 +14,25 @@ public class addressEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int users_id;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "users_id", nullable = false)
+	private userEntitie users_id;
 	private String address;
 	private String type;
 	
 	public addressEntitie(){}
 	
-	public addressEntitie(int id, int users_id, String address, String type) {
+	public addressEntitie(int id, userEntitie users_id, String address, String type) {
 		super();
 		this.id = id;
 		this.users_id = users_id;
 		this.address = address;
 		this.type = type;
 	}
-	public int getUsers_id() {
+	public userEntitie getUsers_id() {
 		return users_id;
 	}
-	public void setUsers_id(int users_id) {
+	public void setUsers_id( userEntitie users_id) {
 		this.users_id = users_id;
 	}
 	public String getAddress() {

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,26 +14,30 @@ public class shoppingCartEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int userID;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "users_id", nullable = false)
+	private userEntitie users_id;
 	private int products_id;
 	private int rating;
 	private String date;
 	
 	public shoppingCartEntitie(){}
 	
-	public shoppingCartEntitie(int id, int userID, int products_id, int rating, String date) {
+	public shoppingCartEntitie(int id, userEntitie users_id, int products_id, int rating, String date) {
 		super();
 		this.id = id;
-		this.userID = userID;
+		this.users_id = users_id;
 		this.products_id = products_id;
 		this.rating = rating;
 		this.date = date;
 	}
-	public int getUserID() {
-		return userID;
+	
+	public userEntitie getUsers_id() {
+		return users_id;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+	
+	public void setUsers_id(userEntitie users_id) {
+		this.users_id = users_id;
 	}
 	public int getProducts_id() {
 		return products_id;
