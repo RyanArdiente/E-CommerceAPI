@@ -15,7 +15,9 @@ public class reviewEntitie
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int products_id;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "products_id", nullable = false)
+	private productsEntitie products_id;
 	private int userID;
 	private String review;
 	private String rating;
@@ -26,7 +28,7 @@ public class reviewEntitie
 		super();
 	}
 
-	public reviewEntitie(int id, int products_id, int userID, String review, String rating, String date)
+	public reviewEntitie(int id, productsEntitie  products_id, int userID, String review, String rating, String date)
 	{
 		super();
 		this.id = id;
@@ -48,7 +50,7 @@ public class reviewEntitie
 	/**
 	 * @return the products_id
 	 */
-	public int getProducts_id()
+	public productsEntitie  getProducts_id()
 	{
 		return products_id;
 	}
@@ -88,7 +90,7 @@ public class reviewEntitie
 	/**
 	 * @param products_id the products_id to set
 	 */
-	public void setProducts_id(int products_id)
+	public void setProducts_id(productsEntitie products_id)
 	{
 		this.products_id = products_id;
 	}

@@ -1,5 +1,7 @@
 package data;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -13,6 +15,9 @@ public class MCDAO {
 	EntityManager em;
 	
 
-	
+	public List<userEntitie> getAllUsers(){
+		List<userEntitie> userList = (List<userEntitie>)em.createNamedQuery("getALL").getResultList();
+		return userList;
+	}
 	
 }
