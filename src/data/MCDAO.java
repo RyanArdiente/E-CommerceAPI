@@ -39,17 +39,19 @@ public class MCDAO {
 		return user;
 	}
 	
-	public Boolean createUser(userEntitie newUser)
+	public userEntitie createUser(userEntitie newUser)
 	{
+		System.out.println("in create user DAO");
 		em.persist(newUser);
-		if (!em.contains(newUser))
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+//		if (!em.contains(newUser))
+//		{
+//			return false;
+//		}
+//		else
+//		{
+//			return true;
+//		}
+		return newUser;
 	}
 	public userEntitie login(String json)
 	{
