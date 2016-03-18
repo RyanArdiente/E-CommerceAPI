@@ -39,6 +39,7 @@ public class MCDAO {
 		return user;
 	}
 	
+
 	public userEntitie createUser(userEntitie newUser)
 	{
 		System.out.println("in create user DAO");
@@ -76,5 +77,5 @@ public class MCDAO {
 		}
 		return null;
 	}
-	
+
 }
