@@ -35,7 +35,7 @@ public class MyController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "createUser", method = RequestMethod.PUT)
+	@RequestMapping(path = "createUser", method = RequestMethod.POST)
 	public Boolean createUser(@RequestBody userEntitie newUser)
 	{
 		return mcdao.createUser(newUser);
