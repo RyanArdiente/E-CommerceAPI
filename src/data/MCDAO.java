@@ -1,10 +1,12 @@
 package data;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +50,29 @@ public class MCDAO {
 		{
 			return true;
 		}
+	}
+	public userEntitie login(String json)
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		userEntitie user;
+		try
+		{
+			user = mapper.readValue(json, userEntitie.class);
+			String email = user.getEmail();
+			String password = user.getPassword();
+			
+			userEntitie checkUser = getUserByEmail(email);
+			if (checkUser.getEmail().equals(email) && checkUser.getPassword().equals(password))
+			{
+				return user;
+			}
+		} 
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }

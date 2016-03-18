@@ -45,26 +45,7 @@ public class MyController {
 	@RequestMapping(path = "login", method = RequestMethod.GET)
 	public userEntitie login(@RequestBody String json)
 	{
-		ObjectMapper mapper = new ObjectMapper();
-		userEntitie user;
-		try
-		{
-			user = mapper.readValue(json, userEntitie.class);
-			String email = user.getEmail();
- 			String password = user.getPassword();
- 			
-			userEntitie checkUser = mcdao.getUserByEmail(email);
-			if (checkUser.getEmail().equals(email) && checkUser.getPassword().equals(password))
-			{
-				return user;
-			}
-		} 
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return mcdao.login(json);
 	}
 	
 	
