@@ -37,4 +37,17 @@ public class MCDAO {
 		return user;
 	}
 	
+	public Boolean createUser(userEntitie newUser)
+	{
+		em.persist(newUser);
+		if (!em.contains(newUser))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
 }
