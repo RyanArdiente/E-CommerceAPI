@@ -11,16 +11,22 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
+@NamedQueries({ @NamedQuery(name = "getALLProducts", query = "select u from productsEntitie u"),
+	@NamedQuery(name = "getProductsById", query = "select u from productsEntitie u where u.id = :id"),
+	@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.catagory = :email"),
+	@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :password") })
 public class productsEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String category;
+	private String catagory;
 	private String price;
 	private String description;
 	private String brand;
@@ -39,7 +45,7 @@ public class productsEntitie {
 	public productsEntitie(int id, String category, String price, String description, String brand, String name) {
 		super();
 		this.id = id;
-		this.category = category;
+		this.catagory = category;
 		this.price = price;
 		this.description = description;
 		this.brand = brand;
@@ -56,8 +62,8 @@ public class productsEntitie {
 	/**
 	 * @return the category
 	 */
-	public String getCategory() {
-		return category;
+	public String getCatagory() {
+		return catagory;
 	}
 
 	/**
@@ -101,7 +107,7 @@ public class productsEntitie {
 	 *            the category to set
 	 */
 	public void setCategory(String category) {
-		this.category = category;
+		this.catagory = category;
 	}
 
 	/**
@@ -174,7 +180,7 @@ public class productsEntitie {
 	 */
 	@Override
 	public String toString() {
-		return "productsEntitie [id=" + id + ", category=" + category + ", price=" + price + ", description="
+		return "productsEntitie [id=" + id + ", category=" + catagory + ", price=" + price + ", description="
 				+ description + ", brand=" + brand + ", name=" + name + "]";
 	}
 
