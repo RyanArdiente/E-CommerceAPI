@@ -11,11 +11,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
+@NamedQueries({ @NamedQuery(name = "getALLProducts", query = "select u from productsEntitie u"),
+		@NamedQuery(name = "getProductsById", query = "select u from productsEntitie u where u.id = :id"),
+		@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.category = :email"),
+		@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :password") })
 public class productsEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +34,7 @@ public class productsEntitie {
 	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
 	@ManyToMany
-	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , 
-	inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
+	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
 	private List<shoppingCartEntitie> cartList = new ArrayList<>();
 
 	public productsEntitie() {
@@ -156,8 +161,6 @@ public class productsEntitie {
 
 		}
 	}
-	
-	
 
 	public List<shoppingCartEntitie> getCartList() {
 		return cartList;
