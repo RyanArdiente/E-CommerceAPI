@@ -63,6 +63,7 @@ public class LoginDAO
 		{
 			em.persist(newUser);
 			System.out.println(e);
+			System.out.println(newUser.getId());
 			return newUser;
 		}
 //		if (!em.contains(newUser))
