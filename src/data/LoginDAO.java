@@ -70,13 +70,33 @@ public class LoginDAO
 			{
 				return user;
 			}
+			else if (!checkUser.getEmail().equals(email))
+			{
+				userEntitie tempUser = new userEntitie();
+				tempUser.setName("Invalid username");
+				return tempUser;				
+			}
+			else if (!checkUser.getPassword().equals(password))
+			{
+				userEntitie tempUser = new userEntitie();
+				tempUser.setName("Invalid password");
+				return tempUser;				
+			}
+			else
+			{
+				userEntitie tempUser = new userEntitie();
+				tempUser.setName("Something else is wrong");
+				return tempUser;				
+			}
 		} 
 		catch (IOException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			userEntitie tempUser = new userEntitie();
+			tempUser.setName("Catch error");
+			return tempUser;
 		}
-		return null;
 	}
 
 }
