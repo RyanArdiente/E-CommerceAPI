@@ -44,7 +44,17 @@ public class LoginDAO
 	public userEntitie createUser(userEntitie newUser)
 	{
 		System.out.println("in create user DAO");
-		em.persist(newUser);
+		userEntitie checkUser = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", newUser.getEmail()).getSingleResult();
+		if (!checkUser.getEmail().equals(newUser.getEmail()))
+		{
+			em.persist(newUser);
+			return newUser;
+		}
+		else
+		{
+			newUser.setName("Username already exists");
+			return newUser;
+		}
 //		if (!em.contains(newUser))
 //		{
 //			return false;
@@ -53,7 +63,6 @@ public class LoginDAO
 //		{
 //			return true;
 //		}
-		return newUser;
 	}
 	public userEntitie login(String json)
 	{
@@ -66,17 +75,17 @@ public class LoginDAO
 			String password = user.getPassword();
 			
 			userEntitie checkUser = getUserByEmail(email);
-			if (checkUser.getEmail().equals(email) && checkUser.getPassword().equals(password))
+			if (validateEmail(checkUser, email) && validatePassword(checkUser, password))
 			{
 				return user;
 			}
-			else if (!checkUser.getEmail().equals(email))
+			else if (validateEmail(checkUser, email))
 			{
 				userEntitie tempUser = new userEntitie();
 				tempUser.setName("Invalid username");
 				return tempUser;				
 			}
-			else if (!checkUser.getPassword().equals(password))
+			else if (validatePassword(checkUser, password))
 			{
 				userEntitie tempUser = new userEntitie();
 				tempUser.setName("Invalid password");
@@ -85,10 +94,10 @@ public class LoginDAO
 			else
 			{
 				userEntitie tempUser = new userEntitie();
-				tempUser.setName("Something else is wrong");
+				tempUser.setName("Username/password is incorrect");
 				return tempUser;				
 			}
-		} 
+		}
 		catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -98,5 +107,19 @@ public class LoginDAO
 			return tempUser;
 		}
 	}
-
+	public boolean validateEmail(userEntitie checkUser, String email)
+	{
+		
+		if (checkUser.getEmail().equals(email))
+			return true;
+		else
+			return false;
+	}
+	public boolean validatePassword(userEntitie checkUser, String password)
+	{
+		if (checkUser.getPassword().equals(password))
+			return true;
+		else
+			return false;
+	}
 }
