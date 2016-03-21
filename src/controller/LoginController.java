@@ -35,8 +35,8 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "login", method = RequestMethod.GET)
-	public userEntitie login(@RequestBody String json)
+	@RequestMapping(path = "login", method = RequestMethod.PUT)
+	public userEntitie login(@RequestBody userEntitie json)
 	{
 		return loginDao.login(json);
 	}
