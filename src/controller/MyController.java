@@ -1,9 +1,6 @@
 package controller;
 
-import java.io.IOException;
-import java.util.List;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.MCDAO;
+import data.productsEntitie;
 import data.userEntitie;
 
 
@@ -27,27 +25,14 @@ public class MyController {
 		return "pong";
 	}
 	
-	@ResponseBody
-	@RequestMapping("user")
-	public List<userEntitie> getUser() {
-		System.out.println("inside get user rout");
-		return mcdao.getAllUsers();
-	}
+	
+	
 	
 	@ResponseBody
-	@RequestMapping(path = "createUser", method = RequestMethod.POST)
-	public userEntitie createUser(@RequestBody userEntitie newUser)
+	@RequestMapping(path = "testProduct", method = RequestMethod.GET)
+	public productsEntitie getTESTProductsBYID()
 	{
-		System.out.println("in create user Controller");
-		return mcdao.createUser(newUser);
+		System.out.println("int test Prodycuct route");
+		return mcdao.getTestProduct();
 	}
-	
-	@ResponseBody
-	@RequestMapping(path = "login", method = RequestMethod.GET)
-	public userEntitie login(@RequestBody String json)
-	{
-		return mcdao.login(json);
-	}
-	
-	
 }

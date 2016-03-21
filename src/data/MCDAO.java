@@ -12,70 +12,55 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-public class MCDAO {
+public class MCDAO 
+{
 	@PersistenceContext
 	EntityManager em;
-	
 
-	public List<userEntitie> getAllUsers(){
-		System.out.println("inside DAO getAllUsers");
-		List<userEntitie> userList = (List<userEntitie>)em.createNamedQuery("getALL").getResultList();
-		return userList;
-	}
 	
-	public userEntitie getUserById(int id){
-		System.out.println("inside DAO Id");
-		userEntitie user = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", id).getSingleResult();
-		return user;
-	}
-	public userEntitie getUserByEmail(String email){
-		System.out.println("inside DAO Email");
-		userEntitie user = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", email).getSingleResult();
-		return user;
-	}
-	public userEntitie getUserByPassword(String password){
-		System.out.println("inside DAO Password");
-		userEntitie user = (userEntitie)em.createNamedQuery("getUserByPassword").setParameter("password", password).getSingleResult();
-		return user;
-	}
 	
-
-	public userEntitie createUser(userEntitie newUser)
-	{
-		System.out.println("in create user DAO");
-		em.persist(newUser);
-//		if (!em.contains(newUser))
+public productsEntitie getTestProduct () {
+	
+	int id = 65;
+	productsEntitie testProduct = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
+	return testProduct;
+	
+}
+	
+//	public productsEntitie getProductsbyID (String json){
+//		
+//		
+//		
+//		
+//		ObjectMapper mapper = new ObjectMapper();
+//		productsEntitie product;
+//		try
 //		{
-//			return false;
-//		}
-//		else
+//			prod = mapper.readValue(json, userEntitie.class);
+//			String email = user.getEmail();
+//			String password = user.getPassword();
+//			
+//			userEntitie checkUser = getUserByEmail(email);
+//			if (checkUser.getEmail().equals(email) && checkUser.getPassword().equals(password))
+//			{
+//				return user;
+//			}
+//		} 
+//		catch (IOException e)
 //		{
-//			return true;
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 //		}
-		return newUser;
-	}
-	public userEntitie login(String json)
-	{
-		ObjectMapper mapper = new ObjectMapper();
-		userEntitie user;
-		try
-		{
-			user = mapper.readValue(json, userEntitie.class);
-			String email = user.getEmail();
-			String password = user.getPassword();
-			
-			userEntitie checkUser = getUserByEmail(email);
-			if (checkUser.getEmail().equals(email) && checkUser.getPassword().equals(password))
-			{
-				return user;
-			}
-		} 
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+//		return null;
+//		
+//		
+//		
+//		
+//		
+//		
+//		System.out.println("inside DAO Id");
+//		productsEntitie product  = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
+//		return product;
+//	}
 
 }
