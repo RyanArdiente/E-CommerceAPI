@@ -18,4 +18,12 @@ public class MCDAO
 	EntityManager em;
 	
 
+	public productsEntitie getTestProduct () {
+	    
+	    int id = 65;
+	    productsEntitie testProduct = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
+	    return testProduct;
+	    
+	}
+	
 }
