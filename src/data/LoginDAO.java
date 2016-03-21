@@ -75,20 +75,20 @@ public class LoginDAO
 //			return true;
 //		}
 	}
-	public userEntitie login(String json)
+	public userEntitie login(userEntitie json)
 	{
-		ObjectMapper mapper = new ObjectMapper();
-		userEntitie user;
+//		ObjectMapper mapper = new ObjectMapper();
+//		userEntitie user;
 		try
 		{
-			user = mapper.readValue(json, userEntitie.class);
-			String email = user.getEmail();
-			String password = user.getPassword();
+//			json = mapper.readValue(json, userEntitie.class);
+			String email = json.getEmail();
+			String password = json.getPassword();
 			
 			userEntitie checkUser = getUserByEmail(email);
 			if (validateEmail(checkUser, email) && validatePassword(checkUser, password))
 			{
-				return user;
+				return json;
 			}
 			else if (validateEmail(checkUser, email))
 			{
@@ -109,7 +109,7 @@ public class LoginDAO
 				return tempUser;				
 			}
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
