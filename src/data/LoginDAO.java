@@ -44,15 +44,25 @@ public class LoginDAO
 	public userEntitie createUser(userEntitie newUser)
 	{
 		System.out.println("in create user DAO");
-		userEntitie checkUser = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", newUser.getEmail()).getSingleResult();
-		if (!checkUser.getEmail().equals(newUser.getEmail()))
+		userEntitie checkUser;
+		try
+		{
+			checkUser = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", newUser.getEmail()).getSingleResult();
+			if (!checkUser.getEmail().toLowerCase().equals(newUser.getEmail().toLowerCase()))
+			{
+				em.persist(newUser);
+				return newUser;
+			}
+			else
+			{
+				newUser.setName("Username already exists");
+				return newUser;
+			}			
+		}
+		catch (Exception e)
 		{
 			em.persist(newUser);
-			return newUser;
-		}
-		else
-		{
-			newUser.setName("Username already exists");
+			System.out.println(e);
 			return newUser;
 		}
 //		if (!em.contains(newUser))
