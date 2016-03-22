@@ -35,11 +35,21 @@ public class LoginController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "login", method = RequestMethod.GET)
-	public userEntitie login(@RequestBody String json)
+	@RequestMapping(path = "login", method = RequestMethod.POST)
+	public userEntitie login(@RequestBody userEntitie json)
 	{
 		return loginDao.login(json);
 	}
-	
-	
+	@ResponseBody
+	@RequestMapping(path = "editUser", method = RequestMethod.POST)
+	public userEntitie editUser(@RequestBody String json)
+	{
+		return loginDao.editUser(json);
+	}
+	@ResponseBody
+	@RequestMapping(path = "deleteUser", method = RequestMethod.POST)
+	public String deleteUser(@RequestBody userEntitie json)
+	{
+		return loginDao.deleteUser(json);
+	}
 }

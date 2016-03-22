@@ -44,15 +44,26 @@ public class LoginDAO
 	public userEntitie createUser(userEntitie newUser)
 	{
 		System.out.println("in create user DAO");
-		userEntitie checkUser = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", newUser.getEmail()).getSingleResult();
-		if (!checkUser.getEmail().equals(newUser.getEmail()))
+		userEntitie checkUser;
+		try
+		{
+			checkUser = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", newUser.getEmail()).getSingleResult();
+			if (!checkUser.getEmail().toLowerCase().equals(newUser.getEmail().toLowerCase()))
+			{
+				em.persist(newUser);
+				return newUser;
+			}
+			else
+			{
+				newUser.setName("Username already exists");
+				return newUser;
+			}			
+		}
+		catch (Exception e)
 		{
 			em.persist(newUser);
-			return newUser;
-		}
-		else
-		{
-			newUser.setName("Username already exists");
+			System.out.println(e);
+			System.out.println(newUser.getId());
 			return newUser;
 		}
 //		if (!em.contains(newUser))
@@ -64,20 +75,21 @@ public class LoginDAO
 //			return true;
 //		}
 	}
-	public userEntitie login(String json)
+	public userEntitie login(userEntitie json)
 	{
-		ObjectMapper mapper = new ObjectMapper();
-		userEntitie user;
+//		ObjectMapper mapper = new ObjectMapper();
+//		userEntitie user;
 		try
 		{
-			user = mapper.readValue(json, userEntitie.class);
-			String email = user.getEmail();
-			String password = user.getPassword();
+//			json = mapper.readValue(json, userEntitie.class);
+			String email = json.getEmail();
+			String password = json.getPassword();
 			
 			userEntitie checkUser = getUserByEmail(email);
 			if (validateEmail(checkUser, email) && validatePassword(checkUser, password))
 			{
-				return user;
+				
+				return checkUser;
 			}
 			else if (validateEmail(checkUser, email))
 			{
@@ -98,7 +110,7 @@ public class LoginDAO
 				return tempUser;				
 			}
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,6 +118,48 @@ public class LoginDAO
 			tempUser.setName("Catch error");
 			return tempUser;
 		}
+	}
+	public userEntitie editUser(String user){
+		ObjectMapper om = new ObjectMapper();
+		int userId = Integer.parseInt(user.split(":")[1].split(",")[0]);
+		System.out.println(userId);
+		userEntitie changes = null;
+		userEntitie userDB = em.find(userEntitie.class, userId);
+		try
+		{
+			System.out.println(user);
+			changes = om.readValue(user, userEntitie.class);
+			if (changes.getEmail() != null){
+				userDB.setEmail(changes.getEmail());
+			}
+			if(changes.getName() != null){
+				userDB.setName(changes.getName());
+			}
+			if(changes.getPassword() != null){
+				userDB.setPassword(changes.getPassword());
+			}
+
+		} catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		em.merge(userDB);
+		return userDB;
+	}
+	public String deleteUser(userEntitie user)
+	{
+		
+		userEntitie ue = em.find(userEntitie.class, user.getId());
+		em.remove(ue);
+		userEntitie check = em.find(userEntitie.class, user.getId());
+		if (check == null){
+			return "delete account successful";
+		}
+		else {
+			return "delete account failed";
+		}
+		
 	}
 	public boolean validateEmail(userEntitie checkUser, String email)
 	{
