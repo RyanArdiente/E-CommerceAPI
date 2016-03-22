@@ -20,6 +20,7 @@
     
     <bean id="dao" class="data.MCDAO" />
     <bean id="loginDao" class="data.LoginDAO" />
+    <bean id="employeesDao" class="data.EmployeesDAO" />
     
     <bean id="myEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="MCPU" />
