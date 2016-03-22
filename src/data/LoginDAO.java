@@ -88,7 +88,8 @@ public class LoginDAO
 			userEntitie checkUser = getUserByEmail(email);
 			if (validateEmail(checkUser, email) && validatePassword(checkUser, password))
 			{
-				return json;
+				
+				return checkUser;
 			}
 			else if (validateEmail(checkUser, email))
 			{
@@ -117,6 +118,48 @@ public class LoginDAO
 			tempUser.setName("Catch error");
 			return tempUser;
 		}
+	}
+	public userEntitie editUser(String user){
+		ObjectMapper om = new ObjectMapper();
+		int userId = Integer.parseInt(user.split(":")[1].split(",")[0]);
+		System.out.println(userId);
+		userEntitie changes = null;
+		userEntitie userDB = em.find(userEntitie.class, userId);
+		try
+		{
+			System.out.println(user);
+			changes = om.readValue(user, userEntitie.class);
+			if (changes.getEmail() != null){
+				userDB.setEmail(changes.getEmail());
+			}
+			if(changes.getName() != null){
+				userDB.setName(changes.getName());
+			}
+			if(changes.getPassword() != null){
+				userDB.setPassword(changes.getPassword());
+			}
+
+		} catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		em.merge(userDB);
+		return userDB;
+	}
+	public String deleteUser(userEntitie user)
+	{
+		
+		userEntitie ue = em.find(userEntitie.class, user.getId());
+		em.remove(ue);
+		userEntitie check = em.find(userEntitie.class, user.getId());
+		if (check == null){
+			return "delete account successful";
+		}
+		else {
+			return "delete account failed";
+		}
+		
 	}
 	public boolean validateEmail(userEntitie checkUser, String email)
 	{
