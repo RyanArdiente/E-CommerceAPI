@@ -18,10 +18,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
-@NamedQueries({ @NamedQuery(name = "getALLProducts", query = "select u from productsEntitie u"),
+@NamedQueries({ @NamedQuery(name = "getAllProducts", query = "select u from productsEntitie u"),
 	@NamedQuery(name = "getProductsById", query = "select u from productsEntitie u where u.id = :id"),
-	@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.catagory = :email"),
-	@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :password") })
+	@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.catagory = :cat"),
+	@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :description") })
 public class productsEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

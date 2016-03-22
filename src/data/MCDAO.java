@@ -24,8 +24,21 @@ public productsEntitie getTestProduct () {
 	int id = 65;
 	productsEntitie testProduct = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
 	return testProduct;
-	
 }
+
+public List<productsEntitie> getAllProducts()
+{
+	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getAllProducts").getResultList();
+	return products;
+}
+
+public List<productsEntitie> getCategories(String cat) 
+{
+	System.out.println("in dao get categories "+cat);
+	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getProductsByCategory").setParameter("cat", cat).getResultList();
+	return products;
+}
+
 	
 //	public productsEntitie getProductsbyID (String json){
 //		
