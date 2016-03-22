@@ -11,7 +11,6 @@ import data.MCDAO;
 import data.productsEntitie;
 
 
-
 @Controller
 public class MyController {
 	@Autowired 
@@ -27,7 +26,7 @@ public class MyController {
     @RequestMapping(path = "testProduct", method = RequestMethod.GET)
     public productsEntitie getTESTProductsBYID()
     {
-        System.out.println("int test Prodycuct route");
+        System.out.println("in testProduct route");
         return mcdao.getTestProduct();
     }
 	
