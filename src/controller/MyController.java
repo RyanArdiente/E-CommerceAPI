@@ -26,11 +26,11 @@ public class MyController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "testProduct", method = RequestMethod.GET)
-	public productsEntitie getTESTProductsBYID()
+	@RequestMapping(path = "product/{id}", method = RequestMethod.GET)
+	public productsEntitie getProductsById(@PathVariable int id)
 	{
 		System.out.println("int test Prodycuct route");
-		return mcdao.getTestProduct();
+		return mcdao.getSingleProduct(id);
 	}
 	
 	@ResponseBody

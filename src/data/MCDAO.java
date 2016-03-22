@@ -19,11 +19,10 @@ public class MCDAO
 
 	
 	
-public productsEntitie getTestProduct () {
+public productsEntitie getSingleProduct (int id) {
 	
-	int id = 65;
-	productsEntitie testProduct = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
-	return testProduct;
+	productsEntitie product = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
+	return product;
 }
 
 public List<productsEntitie> getAllProducts()
