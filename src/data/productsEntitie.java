@@ -44,13 +44,13 @@ public class productsEntitie {
 	private List<reviewEntitie> review = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "products_id", cascade = CascadeType.ALL)
-	@JsonManagedReference(value ="shopingCartItemsToProduct")
+	 @JsonManagedReference(value ="shopingCartItemsToProduct")
 	private List<ShoppingCartItemsEntitie> items;
 
-//	@ManyToMany
-//	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
-//	@JsonBackReference(value ="ShoppingCartToProducts")
-//	private List<shoppingCartEntitie> cartList = new ArrayList<>();
+	@ManyToMany
+	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
+	@JsonBackReference(value ="ShoppingCartToProducts")
+	private List<shoppingCartEntitie> cartList = new ArrayList<>();
 
 
 	public productsEntitie() {
@@ -194,18 +194,18 @@ public class productsEntitie {
 	/**
 	 * @return the cartList
 	 */
-//	public List<shoppingCartEntitie> getCartList()
-//	{
-//		return cartList;
-//	}
-//
-//	/**
-//	 * @param cartList the cartList to set
-//	 */
-//	public void setCartList(List<shoppingCartEntitie> cartList)
-//	{
-//		this.cartList = cartList;
-//	}
+	public List<shoppingCartEntitie> getCartList()
+	{
+		return cartList;
+	}
+
+	/**
+	 * @param cartList the cartList to set
+	 */
+	public void setCartList(List<shoppingCartEntitie> cartList)
+	{
+		this.cartList = cartList;
+	}
 
 	/**
 	 * @return the items

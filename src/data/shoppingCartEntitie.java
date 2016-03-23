@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -30,9 +33,9 @@ public class shoppingCartEntitie {
 	private String type; 
 	
 	
-//	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
-//	@JsonManagedReference(value ="ShoppingCartToProducts")
-//	private List<productsEntitie> productsList = new ArrayList<>();
+	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
+	@JsonBackReference(value ="ShoppingCartToProducts")
+	private List<productsEntitie> productsList = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "shoppingCart_id", cascade = CascadeType.ALL)
 	@JsonManagedReference(value ="shopingCartItemsToShoppingCart")
@@ -68,19 +71,19 @@ public class shoppingCartEntitie {
 		this.type = type;
 	}
 
-//	public List<productsEntitie> getProductsList() {
-//		return productsList;
-//	}
-//	
-//
-//
-//	public void addToProductsList(productsEntitie product){
-//		this.productsList.add(product);
-//	}
-//	
-//	public void setProductsList(List<productsEntitie> productsList) {
-//		this.productsList = productsList;
-//	}
+	public List<productsEntitie> getProductsList() {
+		return productsList;
+	}
+	
+
+
+	public void addToProductsList(productsEntitie product){
+		this.productsList.add(product);
+	}
+	
+	public void setProductsList(List<productsEntitie> productsList) {
+		this.productsList = productsList;
+	}
 
 	/**
 	 * @return the items
