@@ -34,7 +34,7 @@ public List<productsEntitie> getAllProducts()
 public List<productsEntitie> getCategories(String cat) 
 {
 	System.out.println("in dao get categories "+cat);
-	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getProductsByCategory").setParameter("cat", cat).getResultList();
+	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getProductsBycatagory").setParameter("cat", cat).getResultList();
 	return products;
 }
 
