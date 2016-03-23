@@ -49,7 +49,7 @@ public void addToCart(String json){
 	
 	if (user.getCart() != null){
 		System.out.println("my cart exist, so adding product to existing cart");
-//		user.getCart().addToProductsList(product);
+		user.getCart().addToProductsList(product);
 	scie.setShoppingCart_id(user.getCart());
 		
 	}
@@ -59,7 +59,7 @@ public void addToCart(String json){
 		scie.setShoppingCart_id(mycart);
 		mycart.setUsers_id(user);
 		mycart.setType("shopping cart");
-//		mycart.addToProductsList(product);
+		mycart.addToProductsList(product);
 		user.setCart(mycart);	
 	}
 	
