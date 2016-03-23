@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -18,11 +19,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
+
 @NamedQueries({ @NamedQuery(name = "getAllProducts", query = "select u from productsEntitie u"),
 	@NamedQuery(name = "getProductsById", query = "select u from productsEntitie u where u.id = :id"),
-	@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.catagory = :cat"),
+	@NamedQuery(name = "getProductsBycatagory", query = "select u from productsEntitie u where u.catagory = :cat"),
 	@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :description"),
 	@NamedQuery(name = "searchProduct", query = "select u from productsEntitie u where u.name like :searchID or u.brand like :searchID or u.catagory like :searchID ")})
+
 public class productsEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,19 +37,20 @@ public class productsEntitie {
 	private String name;
 	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
+
 	@ManyToMany
-	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , 
-	inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
+	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
 	private List<shoppingCartEntitie> cartList = new ArrayList<>();
+
 
 	public productsEntitie() {
 		super();
 	}
 
-	public productsEntitie(int id, String category, String price, String description, String brand, String name) {
+	public productsEntitie(int id, String catagory, String price, String description, String brand, String name) {
 		super();
 		this.id = id;
-		this.catagory = category;
+		this.catagory = catagory;
 		this.price = price;
 		this.description = description;
 		this.brand = brand;
@@ -61,9 +65,9 @@ public class productsEntitie {
 	}
 
 	/**
-	 * @return the category
+	 * @return the catagory
 	 */
-	public String getCatagory() {
+	public String getcatagory() {
 		return catagory;
 	}
 
@@ -104,11 +108,11 @@ public class productsEntitie {
 	}
 
 	/**
-	 * @param category
-	 *            the category to set
+	 * @param catagory
+	 *            the catagory to set
 	 */
-	public void setCategory(String category) {
-		this.catagory = category;
+	public void setcatagory(String catagory) {
+		this.catagory = catagory;
 	}
 
 	/**
@@ -163,16 +167,8 @@ public class productsEntitie {
 
 		}
 	}
-	
-	
 
-	public List<shoppingCartEntitie> getCartList() {
-		return cartList;
-	}
-
-	public void setCartList(List<shoppingCartEntitie> cartList) {
-		this.cartList = cartList;
-	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -181,8 +177,24 @@ public class productsEntitie {
 	 */
 	@Override
 	public String toString() {
-		return "productsEntitie [id=" + id + ", category=" + catagory + ", price=" + price + ", description="
+		return "productsEntitie [id=" + id + ", catagory=" + catagory + ", price=" + price + ", description="
 				+ description + ", brand=" + brand + ", name=" + name + "]";
+	}
+
+	/**
+	 * @return the cartList
+	 */
+	public List<shoppingCartEntitie> getCartList()
+	{
+		return cartList;
+	}
+
+	/**
+	 * @param cartList the cartList to set
+	 */
+	public void setCartList(List<shoppingCartEntitie> cartList)
+	{
+		this.cartList = cartList;
 	}
 
 }

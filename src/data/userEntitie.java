@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +30,8 @@ public class userEntitie {
 	private String password;
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<addressEntitie> address = new ArrayList<>();
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
-	private List<shoppingCartEntitie> cart = new ArrayList<>();
+	@OneToOne(mappedBy = "user_id", cascade = CascadeType.PERSIST)
+	private shoppingCartEntitie cart;
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
 
@@ -105,14 +106,16 @@ public class userEntitie {
 		this.address = address;
 	}
 
-	public List<shoppingCartEntitie> getCart() {
-		return cart;
-	}
-
-	public void setCart(List<shoppingCartEntitie> cart) {
-		this.cart = cart;
-	}
-
+//	public shoppingCartEntitie getCart()
+//	{
+//		return cart;
+//	}
+//
+//	public void setCart(shoppingCartEntitie cart)
+//	{
+//		this.cart = cart;
+//	}
+//
 	public List<reviewEntitie> getReview() {
 		return review;
 	}
@@ -120,32 +123,20 @@ public class userEntitie {
 	public void setReview(List<reviewEntitie> review) {
 		this.review = review;
 	}
-
-	public void addCart(shoppingCartEntitie cart) {
-		if (!getCart().contains(cart)) {
-			getCart().add(cart);
-		}
-	}
-
-	public void removeCart(shoppingCartEntitie cart) {
-		if (getCart().contains(cart)) {
-			getCart().remove(cart);
-
-		}
-	}
-
-	public void addAddress(addressEntitie address) {
-		if (!getAddress().contains(address)) {
-			getAddress().add(address);
-		}
-	}
-
-	public void removeAddress(addressEntitie address) {
-		if (getAddress().contains(address)) {
-			getAddress().remove(address);
-
-		}
-	}
+//
+//
+//	public void addAddress(addressEntitie address) {
+//		if (!getAddress().contains(address)) {
+//			getAddress().add(address);
+//		}
+//	}
+//
+//	public void removeAddress(addressEntitie address) {
+//		if (getAddress().contains(address)) {
+//			getAddress().remove(address);
+//
+//		}
+//	}
 
 	/*
 	 * (non-Javadoc)

@@ -15,7 +15,6 @@ import data.MCDAO;
 import data.productsEntitie;
 
 
-
 @Controller
 public class MyController {
 	@Autowired 
@@ -27,6 +26,7 @@ public class MyController {
 		return "pong";
 	}
 	
+
 	@ResponseBody
 	@RequestMapping(path = "addToCart", method = RequestMethod.POST)
 	public void addToCart(@RequestBody String json)
@@ -36,12 +36,14 @@ public class MyController {
 		mcdao.addToCart(json);
 	}
 	
+
 	@ResponseBody
-	@RequestMapping(path = "testProduct", method = RequestMethod.GET)
-	public productsEntitie getTESTProductsBYID()
+	@RequestMapping(path = "product/{id}", method = RequestMethod.GET)
+	public productsEntitie getProductsById(@PathVariable int id)
 	{
-		System.out.println("int test Product route");
-		return mcdao.getTestProduct();
+
+		System.out.println("int test Prodycuct route");
+		return mcdao.getSingleProduct(id);
 	}
 	
 	@ResponseBody
