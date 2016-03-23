@@ -28,8 +28,8 @@ public class shoppingCartEntitie {
 	private String type; 
 	
 	
-//	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
-//	private List<productsEntitie> productsList = new ArrayList<>();
+	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
+	private List<productsEntitie> productsList = new ArrayList<>();
 	
 	public shoppingCartEntitie(){}
 	
@@ -61,19 +61,19 @@ public class shoppingCartEntitie {
 		this.type = type;
 	}
 
-//	public List<productsEntitie> getProductsList() {
-//		return productsList;
-//	}
-//	
-//
-//
-//	public void addToProductsList(productsEntitie product){
-//		this.productsList.add(product);
-//	}
-//	
-//	public void setProductsList(List<productsEntitie> productsList) {
-//		this.productsList = productsList;
-//	}
+	public List<productsEntitie> getProductsList() {
+		return productsList;
+	}
+	
+
+
+	public void addToProductsList(productsEntitie product){
+		this.productsList.add(product);
+	}
+	
+	public void setProductsList(List<productsEntitie> productsList) {
+		this.productsList = productsList;
+	}
 
 //	@Override
 //	public String toString() {

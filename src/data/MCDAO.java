@@ -47,28 +47,23 @@ public void addToCart(String json){
 //	ShoppingCartItemsEntitie scie = new ShoppingCartItemsEntitie();
 //	scie.setProducts_id(pe);
 	
-//	if (ue.getCart() != null){
-//		System.out.println("in if of addToCart");
-
-	//	ue.getCart().addToProductsList(pe);
-
-		//scie.setShoppingCart_id(ue.getCart());
-	
-//	}
-//	else {
-//		System.out.println("in else of addToCart");
-//		shoppingCartEntitie mycart = new shoppingCartEntitie();
-//	//	scie.setShoppingCart_id(mycart);
-//		mycart.setUsers_id(ue);
-//		mycart.setType("shopping cart");
+	if (ue.getCart() != null){
+		System.out.println("in if of addToCart");
+//		ue.getCart().addToProductsList(pe);
+//		scie.setShoppingCart_id(ue.getCart());
+	}
+	else {
+		System.out.println("in else of addToCart");
+		shoppingCartEntitie mycart = new shoppingCartEntitie();
+	//	scie.setShoppingCart_id(mycart);
+		mycart.setUsers_id(ue);
+		mycart.setType("shopping cart");
 //		mycart.addToProductsList(pe);
-//		ue.setCart(mycart);
-	
-//	}
+		ue.setCart(mycart);	
+	}
 //	//em.persist(scie);
-//	em.merge(ue);
-//	em.persist(ue);
-
+	em.merge(ue);
+	em.persist(ue);
 //	System.out.println(ue.getCart().getProductsList());
 //	System.out.println(ue.getCart().getProductsList().size());
 

@@ -106,16 +106,16 @@ public class userEntitie {
 		this.address = address;
 	}
 
-//	public shoppingCartEntitie getCart()
-//	{
-//		return cart;
-//	}
-//
-//	public void setCart(shoppingCartEntitie cart)
-//	{
-//		this.cart = cart;
-//	}
-//
+	public shoppingCartEntitie getCart()
+	{
+		return cart;
+	}
+
+	public void setCart(shoppingCartEntitie cart)
+	{
+		this.cart = cart;
+	}
+
 	public List<reviewEntitie> getReview() {
 		return review;
 	}

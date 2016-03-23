@@ -31,9 +31,18 @@ public class MyController {
 	@RequestMapping(path = "addToCart", method = RequestMethod.POST)
 	public void addToCart(@RequestBody String json)
 	{
-//		System.out.println("add to cart");
-//		System.out.println(json);
+		System.out.println("add to cart");
+		System.out.println(json);
 		mcdao.addToCart(json);
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "testProduct", method = RequestMethod.GET)
+	public productsEntitie gettestProductd()
+	{
+		int id =65;
+		System.out.println("int test Prodycuct route");
+		return mcdao.getSingleProduct(id);
 	}
 	
 
