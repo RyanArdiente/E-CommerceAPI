@@ -63,11 +63,22 @@ public class MyController {
 		return mcdao.getAllProducts();
 	}
 	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(path = "category/{cat}", method = RequestMethod.GET)
 	public List<productsEntitie> getCategory(@PathVariable String cat)
 	{
 		System.out.println("in get categories "+cat);
 		return mcdao.getCategories(cat);
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "search/{id}", method = RequestMethod.GET)
+	public List<productsEntitie> searchProduct(@PathVariable String id)
+	{
+		System.out.println("in get categories "+id);
+		return mcdao.searchProducts(id);
 	}
 }
