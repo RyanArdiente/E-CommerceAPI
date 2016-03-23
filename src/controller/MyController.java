@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,14 +27,20 @@ public class MyController {
 		return "pong";
 	}
 	
-	
-	
+	@ResponseBody
+	@RequestMapping(path = "addToCart", method = RequestMethod.POST)
+	public void addToCart(@RequestBody String json)
+	{
+//		System.out.println("add to cart");
+//		System.out.println(json);
+		mcdao.addToCart(json);
+	}
 	
 	@ResponseBody
 	@RequestMapping(path = "testProduct", method = RequestMethod.GET)
 	public productsEntitie getTESTProductsBYID()
 	{
-		System.out.println("int test Prodycuct route");
+		System.out.println("int test Product route");
 		return mcdao.getTestProduct();
 	}
 	
