@@ -19,26 +19,33 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
+
 @NamedQueries({ @NamedQuery(name = "getAllProducts", query = "select u from productsEntitie u"),
 	@NamedQuery(name = "getProductsById", query = "select u from productsEntitie u where u.id = :id"),
-	@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.catagory = :cat"),
+	@NamedQuery(name = "getProductsByCategory", query = "select u from productsEntitie u where u.category = :cat"),
 	@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :description") })
 public class productsEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String catagory;
+	private String category;
 	private String price;
 	private String description;
 	private String brand;
 	private String name;
 	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
+<<<<<<< HEAD
 	@ManyToOne
 	@JoinColumn(name ="cartList" , nullable =false)
 //	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , 
 //	inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
 	private shoppingCartEntitie cartList;
+=======
+	@ManyToMany
+	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
+	private List<shoppingCartEntitie> cartList = new ArrayList<>();
+>>>>>>> 412cffb8ec8a575fbf0093183887fede1d7adaf4
 
 	public productsEntitie() {
 		super();
@@ -47,7 +54,7 @@ public class productsEntitie {
 	public productsEntitie(int id, String category, String price, String description, String brand, String name) {
 		super();
 		this.id = id;
-		this.catagory = category;
+		this.category = category;
 		this.price = price;
 		this.description = description;
 		this.brand = brand;
@@ -64,8 +71,8 @@ public class productsEntitie {
 	/**
 	 * @return the category
 	 */
-	public String getCatagory() {
-		return catagory;
+	public String getcategory() {
+		return category;
 	}
 
 	/**
@@ -109,7 +116,7 @@ public class productsEntitie {
 	 *            the category to set
 	 */
 	public void setCategory(String category) {
-		this.catagory = category;
+		this.category = category;
 	}
 
 	/**
@@ -164,8 +171,6 @@ public class productsEntitie {
 
 		}
 	}
-	
-	
 
 	public shoppingCartEntitie getCartList() {
 		return cartList;
@@ -182,7 +187,7 @@ public class productsEntitie {
 	 */
 	@Override
 	public String toString() {
-		return "productsEntitie [id=" + id + ", category=" + catagory + ", price=" + price + ", description="
+		return "productsEntitie [id=" + id + ", category=" + category + ", price=" + price + ", description="
 				+ description + ", brand=" + brand + ", name=" + name + "]";
 	}
 

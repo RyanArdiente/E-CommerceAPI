@@ -19,11 +19,10 @@ public class MCDAO
 
 	
 	
-public productsEntitie getTestProduct () {
+public productsEntitie getSingleProduct (int id) {
 	
-	int id = 65;
-	productsEntitie testProduct = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
-	return testProduct;
+	productsEntitie product = (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id", id).getSingleResult();
+	return product;
 }
 
 public List<productsEntitie> getAllProducts()
@@ -50,7 +49,7 @@ public void addToCart(String json){
 	
 	if (ue.getCart() != null){
 		System.out.println("in if of addToCart");
-		ue.getCart().addToProductsList(pe);
+	//	ue.getCart().addToProductsList(pe);
 		//scie.setShoppingCart_id(ue.getCart());
 	
 	}
@@ -60,15 +59,15 @@ public void addToCart(String json){
 	//	scie.setShoppingCart_id(mycart);
 		mycart.setUsers_id(ue);
 		mycart.setType("shopping cart");
-		mycart.addToProductsList(pe);
-		ue.setCart(mycart);
+//		mycart.addToProductsList(pe);
+//		ue.setCart(mycart);
 		
 	}
 	//em.persist(scie);
 	em.merge(ue);
 	em.persist(ue);
-	System.out.println(ue.getCart().getProductsList());
-	System.out.println(ue.getCart().getProductsList().size());
+	//System.out.println(ue.getCart().getProductsList());
+	//System.out.println(ue.getCart().getProductsList().size());
 }
 	
 //	public productsEntitie getProductsbyID (String json){
@@ -107,4 +106,6 @@ public void addToCart(String json){
 //		return product;
 //	}
 
+
+	
 }
