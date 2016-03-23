@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,10 +34,11 @@ public class productsEntitie {
 	private String name;
 	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
-	@ManyToMany
-	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , 
-	inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
-	private List<shoppingCartEntitie> cartList = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name ="cartList" , nullable =false)
+//	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , 
+//	inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
+	private shoppingCartEntitie cartList;
 
 	public productsEntitie() {
 		super();
@@ -165,11 +167,11 @@ public class productsEntitie {
 	
 	
 
-	public List<shoppingCartEntitie> getCartList() {
+	public shoppingCartEntitie getCartList() {
 		return cartList;
 	}
 
-	public void setCartList(List<shoppingCartEntitie> cartList) {
+	public void setCartList(shoppingCartEntitie cartList) {
 		this.cartList = cartList;
 	}
 

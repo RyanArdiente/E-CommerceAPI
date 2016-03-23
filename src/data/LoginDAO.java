@@ -50,7 +50,13 @@ public class LoginDAO
 			checkUser = (userEntitie)em.createNamedQuery("getUserByEmail").setParameter("email", newUser.getEmail()).getSingleResult();
 			if (!checkUser.getEmail().toLowerCase().equals(newUser.getEmail().toLowerCase()))
 			{
+				System.out.println("inside if statemet in createUSer method");
+				shoppingCartEntitie cart = new shoppingCartEntitie();
+				cart.setUsers_id(newUser);
+				cart.setType("shopping cart");
+				newUser.setCart(cart);
 				em.persist(newUser);
+				System.out.println("persisted User");
 				return newUser;
 			}
 			else

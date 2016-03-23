@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +30,8 @@ public class userEntitie {
 	private String password;
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<addressEntitie> address = new ArrayList<>();
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
-	private List<shoppingCartEntitie> cart = new ArrayList<>();
+	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
+	private shoppingCartEntitie cart = new shoppingCartEntitie();
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
 
@@ -105,11 +106,15 @@ public class userEntitie {
 		this.address = address;
 	}
 
-	public List<shoppingCartEntitie> getCart() {
+
+
+	public shoppingCartEntitie getCart()
+	{
 		return cart;
 	}
 
-	public void setCart(List<shoppingCartEntitie> cart) {
+	public void setCart(shoppingCartEntitie cart)
+	{
 		this.cart = cart;
 	}
 
@@ -121,18 +126,6 @@ public class userEntitie {
 		this.review = review;
 	}
 
-	public void addCart(shoppingCartEntitie cart) {
-		if (!getCart().contains(cart)) {
-			getCart().add(cart);
-		}
-	}
-
-	public void removeCart(shoppingCartEntitie cart) {
-		if (getCart().contains(cart)) {
-			getCart().remove(cart);
-
-		}
-	}
 
 	public void addAddress(addressEntitie address) {
 		if (!getAddress().contains(address)) {
