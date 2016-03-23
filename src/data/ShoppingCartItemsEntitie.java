@@ -1,5 +1,6 @@
 package data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,16 +10,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ShoppingCartItems")
+@Table(name = "ShoppingcartItems")
 public class ShoppingCartItemsEntitie {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	@ManyToOne
+	@ManyToOne(cascade =  CascadeType.ALL)
 	@JoinColumn(name = "shoppingCart_id")
 	private shoppingCartEntitie shoppingCart_id;
-	@ManyToOne
+	@ManyToOne(cascade =  CascadeType.ALL)
 	@JoinColumn(name = "products_id")
 	private productsEntitie products_id;
 	private int quantity;

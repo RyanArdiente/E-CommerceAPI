@@ -41,31 +41,33 @@ public List<productsEntitie> getCategories(String cat)
 public void addToCart(String json){
 	int productID = Integer.parseInt(json.split(":")[1].split(",")[0].replaceAll("\"", ""));
 	int userID = Integer.parseInt(json.split(":")[2].replace("}", ""));
-	userEntitie ue = em.find(userEntitie.class, userID);
-	productsEntitie pe = em.find(productsEntitie.class, productID);
+	userEntitie user = em.find(userEntitie.class, userID);
+	productsEntitie product = em.find(productsEntitie.class, productID);
 	
-//	ShoppingCartItemsEntitie scie = new ShoppingCartItemsEntitie();
-//	scie.setProducts_id(pe);
+	ShoppingCartItemsEntitie scie = new ShoppingCartItemsEntitie();
+	scie.setProducts_id(product);
 	
-	if (ue.getCart() != null){
-		System.out.println("in if of addToCart");
-//		ue.getCart().addToProductsList(pe);
-//		scie.setShoppingCart_id(ue.getCart());
+	if (user.getCart() != null){
+		System.out.println("my cart exist, so adding product to existing cart");
+		user.getCart().addToProductsList(product);
+	scie.setShoppingCart_id(user.getCart());
+		
 	}
 	else {
-		System.out.println("in else of addToCart");
+		System.out.println("no cart found, creating new cart and adding product");
 		shoppingCartEntitie mycart = new shoppingCartEntitie();
-	//	scie.setShoppingCart_id(mycart);
-		mycart.setUsers_id(ue);
+		scie.setShoppingCart_id(mycart);
+		mycart.setUsers_id(user);
 		mycart.setType("shopping cart");
-//		mycart.addToProductsList(pe);
-		ue.setCart(mycart);	
+		mycart.addToProductsList(product);
+		user.setCart(mycart);	
 	}
-//	//em.persist(scie);
-	em.merge(ue);
-	em.persist(ue);
-//	System.out.println(ue.getCart().getProductsList());
-//	System.out.println(ue.getCart().getProductsList().size());
+	
+	em.merge(user);
+	em.merge(product);
+	em.persist(scie);
+	System.out.println(user.getCart().getProductsList());
+	System.out.println(user.getCart().getProductsList().size());
 
 }
 	
