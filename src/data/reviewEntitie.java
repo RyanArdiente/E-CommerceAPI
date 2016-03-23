@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name = "review")
 public class reviewEntitie
@@ -18,6 +20,7 @@ public class reviewEntitie
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "product_id", nullable = false)
 	private productsEntitie product_id;
+//	@JsonBackReference
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private userEntitie user_id;

@@ -1,6 +1,5 @@
 package data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,10 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 
 @Entity
 @Table(name="shoppingcart")
@@ -20,7 +22,7 @@ public class shoppingCartEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	@JsonManagedReference(value ="UserShoppingCart")
 	@OneToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private userEntitie user_id;
@@ -28,8 +30,13 @@ public class shoppingCartEntitie {
 	private String type; 
 	
 	
-	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
-	private List<productsEntitie> productsList = new ArrayList<>();
+//	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
+//	@JsonManagedReference(value ="ShoppingCartToProducts")
+//	private List<productsEntitie> productsList = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "shoppingCart_id", cascade = CascadeType.ALL)
+	@JsonManagedReference(value ="shopingCartItemsToShoppingCart")
+	private List<ShoppingCartItemsEntitie> items;
 	
 	public shoppingCartEntitie(){}
 	
@@ -61,19 +68,36 @@ public class shoppingCartEntitie {
 		this.type = type;
 	}
 
-	public List<productsEntitie> getProductsList() {
-		return productsList;
+//	public List<productsEntitie> getProductsList() {
+//		return productsList;
+//	}
+//	
+//
+//
+//	public void addToProductsList(productsEntitie product){
+//		this.productsList.add(product);
+//	}
+//	
+//	public void setProductsList(List<productsEntitie> productsList) {
+//		this.productsList = productsList;
+//	}
+
+	/**
+	 * @return the items
+	 */
+	public List<ShoppingCartItemsEntitie> getItems()
+	{
+		return items;
+	}
+
+	/**
+	 * @param items the items to set
+	 */
+	public void setItems(List<ShoppingCartItemsEntitie> items)
+	{
+		this.items = items;
 	}
 	
-
-
-	public void addToProductsList(productsEntitie product){
-		this.productsList.add(product);
-	}
-	
-	public void setProductsList(List<productsEntitie> productsList) {
-		this.productsList = productsList;
-	}
 
 //	@Override
 //	public String toString() {

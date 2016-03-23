@@ -9,6 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
+
 @Entity
 @Table(name = "ShoppingcartItems")
 public class ShoppingCartItemsEntitie {
@@ -16,9 +21,13 @@ public class ShoppingCartItemsEntitie {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+	
+	@JsonBackReference(value ="shopingCartItemsToShoppingCart")
 	@ManyToOne(cascade =  CascadeType.ALL)
 	@JoinColumn(name = "shoppingCart_id")
 	private shoppingCartEntitie shoppingCart_id;
+	
+	@JsonBackReference(value ="shopingCartItemsToProduct")
 	@ManyToOne(cascade =  CascadeType.ALL)
 	@JoinColumn(name = "products_id")
 	private productsEntitie products_id;

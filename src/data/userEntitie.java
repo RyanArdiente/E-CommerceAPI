@@ -14,6 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
+
 @Entity
 @Table(name = "users")
 @NamedQueries({ @NamedQuery(name = "getALL", query = "select u from userEntitie u"),
@@ -28,10 +33,13 @@ public class userEntitie {
 	private String name;
 	private String email;
 	private String password;
+//	@JsonManagedReference
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<addressEntitie> address = new ArrayList<>();
+	@JsonBackReference(value ="UserShoppingCart")
 	@OneToOne(mappedBy = "user_id", cascade = CascadeType.PERSIST)
 	private shoppingCartEntitie cart;
+//	@JsonManagedReference
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
 

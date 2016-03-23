@@ -11,11 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
+
 
 @Entity
 @Table(name = "products")
@@ -37,10 +42,15 @@ public class productsEntitie {
 	private String name;
 	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "products_id", cascade = CascadeType.ALL)
+	@JsonManagedReference(value ="shopingCartItemsToProduct")
+	private List<ShoppingCartItemsEntitie> items;
 
-	@ManyToMany
-	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
-	private List<shoppingCartEntitie> cartList = new ArrayList<>();
+//	@ManyToMany
+//	@JoinTable(name = "shoppingCartItems", joinColumns = @JoinColumn(name = "products_id") , inverseJoinColumns = @JoinColumn(name = "shoppingCart_id") )
+//	@JsonBackReference(value ="ShoppingCartToProducts")
+//	private List<shoppingCartEntitie> cartList = new ArrayList<>();
 
 
 	public productsEntitie() {
@@ -184,17 +194,35 @@ public class productsEntitie {
 	/**
 	 * @return the cartList
 	 */
-	public List<shoppingCartEntitie> getCartList()
+//	public List<shoppingCartEntitie> getCartList()
+//	{
+//		return cartList;
+//	}
+//
+//	/**
+//	 * @param cartList the cartList to set
+//	 */
+//	public void setCartList(List<shoppingCartEntitie> cartList)
+//	{
+//		this.cartList = cartList;
+//	}
+
+	/**
+	 * @return the items
+	 */
+	public List<ShoppingCartItemsEntitie> getItems()
 	{
-		return cartList;
+		return items;
 	}
 
 	/**
-	 * @param cartList the cartList to set
+	 * @param items the items to set
 	 */
-	public void setCartList(List<shoppingCartEntitie> cartList)
+	public void setItems(List<ShoppingCartItemsEntitie> items)
 	{
-		this.cartList = cartList;
+		this.items = items;
 	}
+	
+	
 
 }

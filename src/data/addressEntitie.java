@@ -10,6 +10,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name="address")
 
@@ -21,6 +23,7 @@ public class addressEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+//	@JsonBackReference
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private userEntitie user_id;
