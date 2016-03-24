@@ -75,6 +75,15 @@ public class MyController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(path = "cart/{id}", method = RequestMethod.GET)
+	public List<productsEntitie> getShoppingCartItems(@PathVariable String id)
+	{
+		System.out.println("Inside get shopping cart items controller method");
+		System.out.println("in get categories "+id);
+		return mcdao.getShoppingCartItems(id);
+	}
+	
+	@ResponseBody
 	@RequestMapping(path = "search/{id}", method = RequestMethod.GET)
 	public List<productsEntitie> searchProduct(@PathVariable String id)
 	{

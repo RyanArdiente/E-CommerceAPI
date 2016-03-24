@@ -40,9 +40,22 @@ public List<productsEntitie> getCategories(String cat)
 
 public List<productsEntitie> searchProducts (String id) 
 {
+	
 	System.out.println("in dao get categories "+id);
 	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("searchProduct").setParameter("searchID", id).getResultList();
 	return products;
+}
+
+
+public List<productsEntitie> getShoppingCartItems (String id) 
+{
+	System.out.println("in dao for get shoppingcartItems and id is " + id);
+	userEntitie userID = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", Integer.parseInt(id)).getSingleResult();
+	int ShoppingCartID = userID.getCart().getId();
+	System.out.println(ShoppingCartID);
+//	System.out.println("in dao get categories "+id);
+ List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", Integer.parseInt(id)).getResultList();
+ return products;
 }
 
 public void addToCart(String json){
