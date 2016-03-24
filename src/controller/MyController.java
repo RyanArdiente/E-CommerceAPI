@@ -87,7 +87,7 @@ public class MyController {
 	@RequestMapping(path = "search/{id}", method = RequestMethod.GET)
 	public List<productsEntitie> searchProduct(@PathVariable String id)
 	{
-		System.out.println("in get categories "+id);
+		System.out.println("in get products "+id);
 		return mcdao.searchProducts(id);
 	}
 }
