@@ -59,13 +59,13 @@ public void addToCart(String json){
 	if (user.getCart() != null){
 		System.out.println("my cart exist, so adding product to existing cart");
 		user.getCart().addToProductsList(product);
-	//scie.setShoppingCart_id(user.getCart());
+	scie.setShoppingCart_id(user.getCart());
 		
 	}
 	else {
 		System.out.println("no cart found, creating new cart and adding product");
 		shoppingCartEntitie mycart = new shoppingCartEntitie();
-		//scie.setShoppingCart_id(mycart);
+		scie.setShoppingCart_id(mycart);
 		mycart.setUsers_id(user);
 		mycart.setType("shopping cart");
 		mycart.addToProductsList(product);
