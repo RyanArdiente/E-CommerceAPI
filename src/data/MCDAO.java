@@ -73,11 +73,13 @@ public void addToCart(String json){
 			System.out.println("inside cart is already there add to cart");
 			user.getCart().addToProductsList(product);
 			try{
+				System.out.println("in try block of add to cart dao method");
 				scie = (ShoppingCartItemsEntitie) em.createNamedQuery("getShoppingCartItem").setParameter("sid", user.getCart()).setParameter("pid", product).getSingleResult();
 				scie.setQuantity(scie.getQuantity() + 1);
 				System.out.println(scie);
 			}
 			catch(Exception e){
+				System.out.println("in catch block of add to cart dao method");
 				scie = new ShoppingCartItemsEntitie();
 				scie.setShoppingCart_id(user.getCart());
 				scie.setProducts_id(product);
