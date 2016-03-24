@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
-@Table(name = "ShoppingcartItems")
+@Table(name = "shoppingcartitems")
 public class ShoppingCartItemsEntitie {
 
 	@Id
