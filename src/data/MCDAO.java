@@ -54,7 +54,7 @@ public List<productsEntitie> getShoppingCartItems (String id)
 	int ShoppingCartID = userID.getCart().getId();
 	System.out.println(ShoppingCartID);
 //	System.out.println("in dao get categories "+id);
- List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", Integer.parseInt(id)).getResultList();
+ List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", ShoppingCartID).getResultList();
  return products;
 }
 
