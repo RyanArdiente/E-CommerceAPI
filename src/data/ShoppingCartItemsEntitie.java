@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -16,6 +18,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "ShoppingcartItems")
+@NamedQueries({ @NamedQuery(name = "getALLShoppingCartItems", query = "select u from userEntitie u"),
+	@NamedQuery(name = "getSCitemsbyID", query = "select u from ShoppingCartItemsEntitie u where u.id = :id") })
+
 public class ShoppingCartItemsEntitie {
 
 	@Id
