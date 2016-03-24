@@ -20,7 +20,7 @@ public class ShoppingCartItemsEntitie {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id; 
 	
 	@JsonBackReference(value ="shopingCartItemsToShoppingCart")
 	@ManyToOne(cascade =  CascadeType.ALL)
