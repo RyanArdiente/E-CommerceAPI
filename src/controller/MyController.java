@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.MCDAO;
+import data.addressEntitie;
 import data.productsEntitie;
 
 
@@ -90,4 +91,13 @@ public class MyController {
 		System.out.println("in get products "+id);
 		return mcdao.searchProducts(id);
 	}
+	@ResponseBody
+	@RequestMapping(path = "address/{id}", method = RequestMethod.GET)
+	public addressEntitie getAddresses(@PathVariable String id)
+	{
+
+		return mcdao.getAddress(id);
+	}
+	
 }
+

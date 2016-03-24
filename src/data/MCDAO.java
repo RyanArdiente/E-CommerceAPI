@@ -38,7 +38,17 @@ public class MCDAO
 				.setParameter("cat", cat).getResultList();
 		return products;
 	}
-
+	
+	public addressEntitie getAddress(String id){
+		try{
+		addressEntitie aE = (addressEntitie) em.createNamedQuery("getAddressbyUser")
+		.setParameter("id", id).getSingleResult();
+		return aE;
+		}
+		catch(Exception e){
+			return null;
+		}
+	}
 	public List<productsEntitie> searchProducts(String id)
 	{
 		System.out.println("in dao get products " + id);
