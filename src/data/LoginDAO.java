@@ -64,6 +64,8 @@ public class LoginDAO
 	public userEntitie createUser(userEntitie newUser)
 	{
 		System.out.println("in create user DAO");
+		System.out.println(newUser.getAddress().getType());
+		System.out.println(newUser.getAddress().getAddress());
 		userEntitie checkUser;
 		try
 		{
@@ -71,12 +73,17 @@ public class LoginDAO
 					.getSingleResult();
 			if (!checkUser.getEmail().toLowerCase().equals(newUser.getEmail().toLowerCase()))
 			{
-				System.out.println("inside if statemet in createUSer method");
-				// shoppingCartEntitie cart = new shoppingCartEntitie();
-				// cart.setUsers_id(newUser);
-				// cart.setType("shopping cart");
-				// newUser.setCart(cart);
+				System.out.println("in else");
+//				addressEntitie aE = new addressEntitie();
+//				aE.setAddress(newUser.getAddress().getAddress());
+//				aE.setType(newUser.getAddress().getType());
+//				newUser.setAddress(null);
+//				System.out.println(newUser.getAddress());
+				System.out.println("inside if statemet in createUSer method");				
 				em.persist(newUser);
+//				aE.setuser_id(newUser);
+				
+				//em.persist(aE);
 				System.out.println("persisted User");
 				return newUser;
 			} else
@@ -86,19 +93,19 @@ public class LoginDAO
 			}
 		} catch (Exception e)
 		{
+			System.out.println("in catch");
+			addressEntitie aE = new addressEntitie();
+			aE.setAddress(newUser.getAddress().getAddress());
+			aE.setType(newUser.getAddress().getType());
+			newUser.setAddress(null);
+			System.out.println(newUser.getAddress());
 			em.persist(newUser);
+			aE.setuser_id(newUser);
+			em.persist(aE);
 			System.out.println(e);
 			System.out.println(newUser.getId());
 			return newUser;
 		}
-		// if (!em.contains(newUser))
-		// {
-		// return false;
-		// }
-		// else
-		// {
-		// return true;
-		// }
 	}
 
 	public userEntitie login(userEntitie json)

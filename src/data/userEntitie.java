@@ -14,8 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.annotations.JoinFetch;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -35,6 +36,7 @@ public class userEntitie {
 	private String password;
 //	@JsonManagedReference
 	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
+	@JoinFetch
 	private addressEntitie address;
 	@JsonBackReference(value ="UserShoppingCart")
 	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
