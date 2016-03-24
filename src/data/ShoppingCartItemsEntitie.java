@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "ShoppingcartItems")
 @NamedQueries({ @NamedQuery(name = "getALLShoppingCartItems", query = "select u from userEntitie u"),
 	@NamedQuery(name = "getSCitemsbyID", query = "select u from ShoppingCartItemsEntitie u where u.id = :id") })
-
 public class ShoppingCartItemsEntitie {
 
 	@Id
