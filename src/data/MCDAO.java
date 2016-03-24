@@ -51,9 +51,9 @@ public class MCDAO
 	}
 	public List<productsEntitie> searchProducts(String id)
 	{
-		System.out.println("in dao get categories " + id);
-		List<productsEntitie> products = (List<productsEntitie>) em.createNamedQuery("searchProduct")
-				.setParameter("searchID", id).getResultList();
+		System.out.println("in dao get products " + id);
+		List<productsEntitie> products = em.createQuery("select u from productsEntitie u where u.name like :searchID or u.brand like :searchID or u.catagory like :searchID", productsEntitie.class).setParameter("searchID", "%"+id+"%").getResultList();
+		System.out.println("results: "+products);
 		return products;
 	}
 

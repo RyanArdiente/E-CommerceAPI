@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	@NamedQuery(name = "getProductsById", query = "select u from productsEntitie u where u.id = :id"),
 	@NamedQuery(name = "getProductsBycatagory", query = "select u from productsEntitie u where u.catagory = :cat"),
 	@NamedQuery(name = "getProductsByDesription", query = "select u from productsEntitie u where u.description = :description"),
-	@NamedQuery(name = "searchProduct", query = "select u from productsEntitie u where u.name like :searchID or u.brand like :searchID or u.catagory like :searchID ")})
+	@NamedQuery(name = "searchProduct", query = "select u from productsEntitie u where u.name like :searchID or u.brand like :searchID or u.catagory like :searchID")})
 
 public class productsEntitie {
 	@Id
