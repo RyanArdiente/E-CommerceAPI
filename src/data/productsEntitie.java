@@ -40,6 +40,7 @@ public class productsEntitie {
 	private String description;
 	private String brand;
 	private String name;
+	
 	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
 	private List<reviewEntitie> review = new ArrayList<>();
 	

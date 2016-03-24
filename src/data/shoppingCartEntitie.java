@@ -26,7 +26,7 @@ public class shoppingCartEntitie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@JsonManagedReference(value ="UserShoppingCart")
-	@OneToOne(optional = false)
+	@OneToOne(optional = false, cascade =  CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false)
 	private userEntitie user_id;
 	

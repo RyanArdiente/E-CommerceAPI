@@ -48,8 +48,10 @@ public List<productsEntitie> searchProducts (String id)
 public void addToCart(String json){
 	int productID = Integer.parseInt(json.split(":")[1].split(",")[0].replaceAll("\"", ""));
 	int userID = Integer.parseInt(json.split(":")[2].replace("}", ""));
+	System.out.println(productID);
 	userEntitie user = em.find(userEntitie.class, userID);
 	productsEntitie product = em.find(productsEntitie.class, productID);
+	
 	
 	ShoppingCartItemsEntitie scie = new ShoppingCartItemsEntitie();
 	scie.setProducts_id(product);
