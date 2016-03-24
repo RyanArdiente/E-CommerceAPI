@@ -37,7 +37,7 @@ public class userEntitie {
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private List<addressEntitie> address = new ArrayList<>();
 	@JsonBackReference(value ="UserShoppingCart")
-	@OneToOne(mappedBy = "user_id", cascade = CascadeType.PERSIST)
+	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private shoppingCartEntitie cart;
 //	@JsonManagedReference
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
