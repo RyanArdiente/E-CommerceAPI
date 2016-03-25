@@ -40,14 +40,18 @@ public class LoginDAO
 
 	public userEntitie getUserByEmail(String email)
 	{
-		System.out.println("inside DAO Email");
+		System.out.println("inside DAO to get user by Email for login");
 		try
 		{
+			System.out.println("email is  " + email);
 			userEntitie user = (userEntitie) em.createNamedQuery("getUserByEmail").setParameter("email", email)
 					.getSingleResult();
+			System.out.println(user);
 			return user;
+			
 		} catch (Exception e)
 		{
+			System.out.println(e + "user not found");
 			return null;
 		}
 
