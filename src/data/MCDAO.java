@@ -47,22 +47,23 @@ public class MCDAO
 			return null;
 		}
 	}
+	
 	public void editAddress(String address){
-		System.out.println(address);
-		int userid = Integer.parseInt(address.replace("{", "").replace("}", "").split(",")[0].split(":")[1]);
-		String addr = address.replace("{", "").replace("}", "").split(",")[1].split(":")[1].replaceAll("\"", "");
-		String type = address.replace("{", "").replace("}", "").split(",")[2].split(":")[1].replaceAll("\"", "");
-		userEntitie uE = em.find(userEntitie.class, userid);
-		if(addr != ""){
-		uE.getAddress().setAddress(addr);
-		}
-		if(type != ""){
-		uE.getAddress().setType(type);
-		}
-		em.merge(uE);
-		System.out.println(uE);
-		
-	}
+        System.out.println(address);
+        int userid = Integer.parseInt(address.replace("{", "").replace("}", "").split(",")[0].split(":")[1]);
+        String addr = address.replace("{", "").replace("}", "").split(",")[1].split(":")[1].replaceAll("\"", "");
+        String type = address.replace("{", "").replace("}", "").split(",")[2].split(":")[1].replaceAll("\"", "");
+        userEntitie uE = em.find(userEntitie.class, userid);
+        if(addr != ""){
+        uE.getAddress().setAddress(addr);
+        }
+        if(type != ""){
+        uE.getAddress().setType(type);
+        }
+        em.merge(uE);
+        System.out.println(uE);
+        
+    }
 	public List<productsEntitie> searchProducts(String id)
 	{
 		System.out.println("in dao get products " + id);
@@ -132,8 +133,8 @@ public void addToCart(String json){
 			System.out.println("inside else statement after em.merge(mycart)");
 		}
 	
-	em.merge(user);
-	em.merge(product);
+//	em.merge(user);
+	//em.merge(product);
 	em.persist(scie);
 //	System.out.println(user.getCart().getProductsList());
 //	System.out.println(user.getCart().getProductsList().size());
@@ -145,8 +146,9 @@ public void addToCart(String json){
 		em.createNamedQuery("deleteSCitemsbyID").setParameter("id", Integer.parseInt(id)).executeUpdate();
 		System.out.println("deleted item" );
 		
-//		userEntitie user =em.find(userEntitie.class, 3);
-//		em.merge(user);
+//	userEntitie user =em.find(userEntitie.class, 3);
+//	user.
+////		em.merge(user);
 		
 	}
 
