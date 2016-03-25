@@ -57,15 +57,16 @@ public class MCDAO
 
 
 
-public List<productsEntitie> getShoppingCartItems (String id) 
+public  List<productsEntitie> getShoppingCartItems (String id) 
 {
 	System.out.println("in dao for get shoppingcartItems and id is " + id);
 	userEntitie userID = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", Integer.parseInt(id)).getSingleResult();
 	int ShoppingCartID = userID.getCart().getId();
-	System.out.println(ShoppingCartID);
+	System.out.println(userID.getCart().getProductsList());
+	//System.out.println(ShoppingCartID);
 //	System.out.println("in dao get categories "+id);
- List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", ShoppingCartID).getResultList();
- return products;
+//	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", ShoppingCartID).getResultList();
+	return userID.getCart().getProductsList();
 }
 
 public void addToCart(String json){
@@ -123,62 +124,16 @@ public void addToCart(String json){
 //	System.out.println(user.getCart().getProductsList());
 //	System.out.println(user.getCart().getProductsList().size());
 	}
-	public List<productsEntitie> displayCartItems(String id)
+	public void deleteCartItem(String id)
 	{
-		System.out.println("in dao");
+		System.out.println("in delete Cart dao method");
 		System.out.println("id: "+id);
-//		List<productsEntitie> products = em.createQuery("select p from productsEntitie p join userEntitie ue where ue.id = shoppingCartEntitie sce ShoppingCartItemsEntitie scie where p.id = scie.products_id", productsEntitie.class).setParameter("searchID", "%"+id+"%").getResultList();
-		shoppingCartEntitie shoppingCart = em.createQuery("select sce from shoppingCartEntitie sce where sce.user_id = :searchID", shoppingCartEntitie.class).setParameter("searchID", id).getSingleResult();
-		System.out.println("1");
-		System.out.println(shoppingCart.getId());
-		List<ShoppingCartItemsEntitie> shoppingCartItems = em.createQuery("select scie from ShoppingCartItemsEntitie scie where scie.shoppingCart_id = :searchID",ShoppingCartItemsEntitie.class).setParameter("searchID", "%"+shoppingCart.getId()+"%").getResultList();
-		System.out.println("2");
-		List<productsEntitie> products = new ArrayList<>(); 
-		for (ShoppingCartItemsEntitie scie : shoppingCartItems)
-		{
-			products.add(em.createQuery("select p from productsEntitie p where p.id = :searchID", productsEntitie.class).setParameter("searchID", "%"+scie.getProducts_id()+"%").getSingleResult());
-		}
-		System.out.println("3");
-		return products;
+		em.createNamedQuery("deleteSCitemsbyID").setParameter("id", Integer.parseInt(id)).executeUpdate();
+		System.out.println("deleted item" );
+//		userEntitie user =em.find(userEntitie.class, 3);
+//		em.persist(user);
+		
 	}
 
-	// public productsEntitie getProductsbyID (String json){
-	//
-	//
-	//
-	//
-	// ObjectMapper mapper = new ObjectMapper();
-	// productsEntitie product;
-	// try
-	// {
-	// prod = mapper.readValue(json, userEntitie.class);
-	// String email = user.getEmail();
-	// String password = user.getPassword();
-	//
-	// userEntitie checkUser = getUserByEmail(email);
-	// if (checkUser.getEmail().equals(email) &&
-	// checkUser.getPassword().equals(password))
-	// {
-	// return user;
-	// }
-	// }
-	// catch (IOException e)
-	// {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return null;
-	//
-	//
-	//
-	//
-	//
-	//
-	// System.out.println("inside DAO Id");
-	// productsEntitie product =
-	// (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id",
-	// id).getSingleResult();
-	// return product;
-	// }
 
 }

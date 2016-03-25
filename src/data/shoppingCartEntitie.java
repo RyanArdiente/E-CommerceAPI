@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,14 +34,14 @@ public class shoppingCartEntitie {
 	private String type; 
 	
 	
-	@ManyToMany(mappedBy = "cartList", cascade =  CascadeType.ALL)
+	@ManyToMany(mappedBy = "cartList", fetch = FetchType.EAGER, cascade =  CascadeType.ALL)
 	@JsonBackReference(value ="ShoppingCartToProducts")
 	private List<productsEntitie> productsList = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "shoppingCart_id", cascade = CascadeType.ALL)
 	@JsonManagedReference(value ="shopingCartItemsToShoppingCart")
 	private List<ShoppingCartItemsEntitie> items;
-	
+	 
 	public shoppingCartEntitie(){}
 	
 	public shoppingCartEntitie(int id, userEntitie users_id, String type) {
