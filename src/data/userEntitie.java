@@ -14,8 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.annotations.JoinFetch;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -34,8 +35,9 @@ public class userEntitie {
 	private String email;
 	private String password;
 //	@JsonManagedReference
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
-	private List<addressEntitie> address = new ArrayList<>();
+	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
+	@JoinFetch
+	private addressEntitie address;
 	@JsonBackReference(value ="UserShoppingCart")
 	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
 	private shoppingCartEntitie cart;
@@ -106,11 +108,11 @@ public class userEntitie {
 		this.password = password;
 	}
 
-	public List<addressEntitie> getAddress() {
+	public addressEntitie getAddress() {
 		return address;
 	}
 
-	public void setAddress(List<addressEntitie> address) {
+	public void setAddress(addressEntitie address) {
 		this.address = address;
 	}
 
