@@ -99,5 +99,14 @@ public class MyController {
 		return mcdao.getAddress(id);
 	}
 	
+	@ResponseBody
+	@RequestMapping(path = "displayCartItems/{id}", method = RequestMethod.GET)
+	public List<productsEntitie> displayCartItems(@PathVariable String id)
+	{
+		System.out.println("in controller");
+		System.out.println("id: "+id);
+		return mcdao.displayCartItems(id);
+	}
+	
 }
 
