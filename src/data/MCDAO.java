@@ -1,12 +1,11 @@
 package data;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,6 @@ public class MCDAO
 
 	public productsEntitie getSingleProduct(int id)
 	{
-
 		productsEntitie product = (productsEntitie) em.createNamedQuery("getProductsById").setParameter("id", id)
 				.getSingleResult();
 		return product;
@@ -75,15 +73,14 @@ public class MCDAO
 
 
 
-public List<productsEntitie> getShoppingCartItems (String id) 
+public  List<productsEntitie> getShoppingCartItems (String id) 
 {
 	System.out.println("in dao for get shoppingcartItems and id is " + id);
 	userEntitie userID = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", Integer.parseInt(id)).getSingleResult();
+//	em.merge(userID);
 	int ShoppingCartID = userID.getCart().getId();
-	System.out.println(ShoppingCartID);
-//	System.out.println("in dao get categories "+id);
- List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", ShoppingCartID).getResultList();
- return products;
+	System.out.println(userID.getCart().getProductsList());
+return userID.getCart().getProductsList();
 }
 
 public void addToCart(String json){
@@ -99,11 +96,16 @@ public void addToCart(String json){
 			System.out.println("inside cart is already there add to cart");
 			user.getCart().addToProductsList(product);
 			try{
+				System.out.println("in try block of add to cart dao method");
 				scie = (ShoppingCartItemsEntitie) em.createNamedQuery("getShoppingCartItem").setParameter("sid", user.getCart()).setParameter("pid", product).getSingleResult();
+				System.out.println("1");
 				scie.setQuantity(scie.getQuantity() + 1);
+				System.out.println("2");
 				System.out.println(scie);
+				System.out.println("3");
 			}
 			catch(Exception e){
+				System.out.println("in catch block of add to cart dao method");
 				scie = new ShoppingCartItemsEntitie();
 				scie.setShoppingCart_id(user.getCart());
 				scie.setProducts_id(product);
@@ -135,46 +137,18 @@ public void addToCart(String json){
 	em.persist(scie);
 //	System.out.println(user.getCart().getProductsList());
 //	System.out.println(user.getCart().getProductsList().size());
+	}
+	public void deleteCartItem(String id)
+	{
+		System.out.println("in delete Cart dao method");
+		System.out.println("id: "+id);
+		em.createNamedQuery("deleteSCitemsbyID").setParameter("id", Integer.parseInt(id)).executeUpdate();
+		System.out.println("deleted item" );
+		
+//		userEntitie user =em.find(userEntitie.class, 3);
+//		em.merge(user);
+		
+	}
 
-}
-
-	// public productsEntitie getProductsbyID (String json){
-	//
-	//
-	//
-	//
-	// ObjectMapper mapper = new ObjectMapper();
-	// productsEntitie product;
-	// try
-	// {
-	// prod = mapper.readValue(json, userEntitie.class);
-	// String email = user.getEmail();
-	// String password = user.getPassword();
-	//
-	// userEntitie checkUser = getUserByEmail(email);
-	// if (checkUser.getEmail().equals(email) &&
-	// checkUser.getPassword().equals(password))
-	// {
-	// return user;
-	// }
-	// }
-	// catch (IOException e)
-	// {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return null;
-	//
-	//
-	//
-	//
-	//
-	//
-	// System.out.println("inside DAO Id");
-	// productsEntitie product =
-	// (productsEntitie)em.createNamedQuery("getProductsById").setParameter("id",
-	// id).getSingleResult();
-	// return product;
-	// }
 
 }

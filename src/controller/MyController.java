@@ -39,14 +39,7 @@ public class MyController {
 		mcdao.addToCart(json);
 	}
 	
-	@ResponseBody
-	@RequestMapping(path = "testProduct", method = RequestMethod.GET)
-	public productsEntitie gettestProductd()
-	{
-		int id =65;
-		System.out.println("int test Prodycuct route");
-		return mcdao.getSingleProduct(id);
-	}
+
 	
 
 	@ResponseBody
@@ -54,7 +47,7 @@ public class MyController {
 	public productsEntitie getProductsById(@PathVariable int id)
 	{
 
-		System.out.println("int test Prodycuct route");
+		System.out.println("int product id");
 		return mcdao.getSingleProduct(id);
 	}
 	
@@ -105,6 +98,17 @@ public class MyController {
 	public void editAddress(@RequestBody String address)
 	{
 		mcdao.editAddress(address);
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(path = "deleteCartItem/{id}", method = RequestMethod.DELETE)
+	public void deleteFromShoppingCart(@PathVariable String id)
+	{
+		System.out.println("in controller to delete from shopping cart");
+		System.out.println("id: "+id);
+		 mcdao.deleteCartItem(id);
 	}
 	
 }
