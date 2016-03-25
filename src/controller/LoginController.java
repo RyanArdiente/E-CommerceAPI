@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.LoginDAO;
+import data.addressEntitie;
 import data.userEntitie;
 
 
@@ -28,7 +29,7 @@ public class LoginController {
 	
 	@ResponseBody
 	@RequestMapping(path = "createUser", method = RequestMethod.POST)
-	public userEntitie createUser(@RequestBody userEntitie newUser)
+	public addressEntitie createUser(@RequestBody userEntitie newUser)
 	{
 		System.out.println("in create user Controller");
 		return loginDao.createUser(newUser);
@@ -36,7 +37,7 @@ public class LoginController {
 	
 	@ResponseBody
 	@RequestMapping(path = "login", method = RequestMethod.POST)
-	public userEntitie login(@RequestBody userEntitie json)
+	public addressEntitie login(@RequestBody userEntitie json)
 	{
 		return loginDao.login(json);
 	}
@@ -52,4 +53,5 @@ public class LoginController {
 	{
 		return loginDao.deleteUser(json);
 	}
+	
 }

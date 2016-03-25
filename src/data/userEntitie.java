@@ -36,7 +36,7 @@ public class userEntitie {
 	private String password;
 //	@JsonManagedReference
 	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
-	@JoinFetch
+	@JsonBackReference(value="usertoaddress")
 	private addressEntitie address;
 	@JsonBackReference(value ="UserShoppingCart")
 	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)

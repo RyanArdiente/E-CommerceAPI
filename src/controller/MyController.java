@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import data.LoginDAO;
 import data.MCDAO;
 import data.addressEntitie;
 import data.productsEntitie;
+import data.userEntitie;
 
 
 @Controller
@@ -97,6 +99,12 @@ public class MyController {
 	{
 
 		return mcdao.getAddress(id);
+	}
+	@ResponseBody
+	@RequestMapping(path = "editAddress", method = RequestMethod.POST)
+	public void editAddress(@RequestBody String address)
+	{
+		mcdao.editAddress(address);
 	}
 	
 }

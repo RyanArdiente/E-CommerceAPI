@@ -10,11 +10,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.eclipse.persistence.annotations.JoinFetch;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="address")
-
+@JsonInclude(Include.ALWAYS)
 @NamedQueries({ @NamedQuery(name = "getALLAddress", query = "select u from addressEntitie u"),
 	@NamedQuery(name = "getAddressbyID", query = "select u from productsEntitie u where u.id = :id"),
 	@NamedQuery(name = "getAddressbyType", query = "select u from addressEntitie u where u.type = :email"),
@@ -24,7 +26,7 @@ public class addressEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-//	@JsonBackReference
+	@JsonManagedReference(value="usertoaddress")
 	@OneToOne(optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private userEntitie user_id;
@@ -52,6 +54,12 @@ public class addressEntitie {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	@Override
+	public String toString()
+	{
+		return "addressEntitie [id=" + id + ", user_id=" + user_id + ", address=" + address + ", type=" + type + "]";
+	}
+
 	public String getType() {
 		return type;
 	}

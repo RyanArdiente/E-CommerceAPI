@@ -1,6 +1,7 @@
 package data;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,13 +25,12 @@ public class LoginDAO
 		return userList;
 	}
 
-	public userEntitie getUserById(int id)
+	public userEntitie getUserById(String id)
 	{
 		System.out.println("inside DAO Id");
 		try
 		{
-			userEntitie user = (userEntitie) em.createNamedQuery("getUserById").setParameter("id", id)
-					.getSingleResult();
+			userEntitie user = (userEntitie) em.createNamedQuery("getUserById").setParameter("id", id).getSingleResult();
 			return user;
 		} catch (Exception e)
 		{
@@ -61,11 +61,12 @@ public class LoginDAO
 		return user;
 	}
 
-	public userEntitie createUser(userEntitie newUser)
+	public addressEntitie createUser(userEntitie newUser)
 	{
 		System.out.println("in create user DAO");
 		System.out.println(newUser.getAddress().getType());
 		System.out.println(newUser.getAddress().getAddress());
+		List<Object> list = new ArrayList<>();
 		userEntitie checkUser;
 		try
 		{
@@ -74,22 +75,24 @@ public class LoginDAO
 			if (!checkUser.getEmail().toLowerCase().equals(newUser.getEmail().toLowerCase()))
 			{
 				System.out.println("in else");
-//				addressEntitie aE = new addressEntitie();
-//				aE.setAddress(newUser.getAddress().getAddress());
-//				aE.setType(newUser.getAddress().getType());
-//				newUser.setAddress(null);
-//				System.out.println(newUser.getAddress());
+				addressEntitie aE = new addressEntitie();
+				aE.setAddress(newUser.getAddress().getAddress());
+				aE.setType(newUser.getAddress().getType());
+				newUser.setAddress(null);
+				System.out.println(newUser.getAddress());
 				System.out.println("inside if statemet in createUSer method");				
 				em.persist(newUser);
-//				aE.setuser_id(newUser);
+				aE.setuser_id(newUser);
+				list.add(newUser);
 				
-				//em.persist(aE);
+				em.persist(aE);
 				System.out.println("persisted User");
-				return newUser;
+				return aE;
 			} else
 			{
 				newUser.setName("Username already exists");
-				return newUser;
+				list.add(newUser);
+				return null;
 			}
 		} catch (Exception e)
 		{
@@ -98,17 +101,23 @@ public class LoginDAO
 			aE.setAddress(newUser.getAddress().getAddress());
 			aE.setType(newUser.getAddress().getType());
 			newUser.setAddress(null);
-			System.out.println(newUser.getAddress());
+			
 			em.persist(newUser);
 			aE.setuser_id(newUser);
 			em.persist(aE);
+			em.merge(newUser);
+			//list.add(newUser);
+			//list.add(aE);
+			System.out.println(newUser.getAddress());
 			System.out.println(e);
+			System.out.println(list);
 			System.out.println(newUser.getId());
-			return newUser;
+			
+			return aE;
 		}
 	}
 
-	public userEntitie login(userEntitie json)
+	public addressEntitie login(userEntitie json)
 	{
 		// ObjectMapper mapper = new ObjectMapper();
 		// userEntitie user;
@@ -123,27 +132,27 @@ public class LoginDAO
 			{
 				userEntitie tempUser = new userEntitie();
 				tempUser.setName("Username/password is incorrect");
-				return tempUser;
+				return tempUser.getAddress();
 			}
 			if (validateEmail(checkUser, email) && validatePassword(checkUser, password))
 			{
 
-				return checkUser;
+				return checkUser.getAddress();
 			} else if (validateEmail(checkUser, email))
 			{
 				userEntitie tempUser = new userEntitie();
 				tempUser.setName("Invalid username");
-				return tempUser;
+				return tempUser.getAddress();
 			} else if (validatePassword(checkUser, password))
 			{
 				userEntitie tempUser = new userEntitie();
 				tempUser.setName("Invalid password");
-				return tempUser;
+				return tempUser.getAddress();
 			} else
 			{
 				userEntitie tempUser = new userEntitie();
 				tempUser.setName("Username/password is incorrect");
-				return tempUser;
+				return tempUser.getAddress();
 			}
 		} catch (Exception e)
 		{
@@ -151,7 +160,7 @@ public class LoginDAO
 			e.printStackTrace();
 			userEntitie tempUser = new userEntitie();
 			tempUser.setName("Catch error");
-			return tempUser;
+			return tempUser.getAddress();
 		}
 	}
 
