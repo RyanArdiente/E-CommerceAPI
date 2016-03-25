@@ -61,12 +61,10 @@ public  List<productsEntitie> getShoppingCartItems (String id)
 {
 	System.out.println("in dao for get shoppingcartItems and id is " + id);
 	userEntitie userID = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", Integer.parseInt(id)).getSingleResult();
+//	em.merge(userID);
 	int ShoppingCartID = userID.getCart().getId();
 	System.out.println(userID.getCart().getProductsList());
-	//System.out.println(ShoppingCartID);
-//	System.out.println("in dao get categories "+id);
-//	List<productsEntitie> products = (List<productsEntitie>)em.createNamedQuery("getSCitemsbyID").setParameter("id", ShoppingCartID).getResultList();
-	return userID.getCart().getProductsList();
+return userID.getCart().getProductsList();
 }
 
 public void addToCart(String json){
@@ -130,8 +128,9 @@ public void addToCart(String json){
 		System.out.println("id: "+id);
 		em.createNamedQuery("deleteSCitemsbyID").setParameter("id", Integer.parseInt(id)).executeUpdate();
 		System.out.println("deleted item" );
+		
 //		userEntitie user =em.find(userEntitie.class, 3);
-//		em.persist(user);
+//		em.merge(user);
 		
 	}
 

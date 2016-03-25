@@ -102,6 +102,19 @@ public class shoppingCartEntitie {
 		this.items = items;
 	}
 	
+	public void addShoppingCartItemsEntitie(ShoppingCartItemsEntitie item) {
+	if (!getItems().contains(item)) {
+		getItems().add(item);
+	}
+}
+
+public void removeShoppingCartItemsEntitie(ShoppingCartItemsEntitie item) {
+	if (getItems().contains(item)) {
+		getItems().remove(item);
+
+	}
+}
+	
 
 //	@Override
 //	public String toString() {
