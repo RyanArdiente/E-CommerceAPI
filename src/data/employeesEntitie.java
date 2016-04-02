@@ -20,7 +20,7 @@ public class employeesEntitie {
 	private String title;
 	private String email;
 	private String bio;
-	private boolean admin;
+	private String pictures;
 	
 	
 	public employeesEntitie(){}
@@ -35,13 +35,6 @@ public class employeesEntitie {
 		this.bio = bio;
 	}
 	
-	public boolean isAdmin() {
-		return admin;
-	}
-	
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
 	public String getName() {
 		return name;
 	}
@@ -68,6 +61,18 @@ public class employeesEntitie {
 	}
 	public int getId() {
 		return id;
+	}
+
+
+	public String getImage()
+	{
+		return pictures;
+	}
+
+
+	public void setImage(String image)
+	{
+		this.pictures = image;
 	}
 	
 }

@@ -40,14 +40,18 @@ public class LoginDAO
 
 	public userEntitie getUserByEmail(String email)
 	{
-		System.out.println("inside DAO Email");
+		System.out.println("inside DAO to get user by Email for login");
 		try
 		{
+			System.out.println("email is  " + email);
 			userEntitie user = (userEntitie) em.createNamedQuery("getUserByEmail").setParameter("email", email)
 					.getSingleResult();
+			System.out.println(user);
 			return user;
+			
 		} catch (Exception e)
 		{
+			System.out.println(e + "user not found");
 			return null;
 		}
 
@@ -231,4 +235,21 @@ public class LoginDAO
 		else
 			return false;
 	}
+	
+	public void editAddress(String address){
+        System.out.println(address);
+        int userid = Integer.parseInt(address.replace("{", "").replace("}", "").split(",")[0].split(":")[1]);
+        String addr = address.replace("{", "").replace("}", "").split(",")[1].split(":")[1].replaceAll("\"", "");
+        String type = address.replace("{", "").replace("}", "").split(",")[2].split(":")[1].replaceAll("\"", "");
+        userEntitie uE = em.find(userEntitie.class, userid);
+        if(addr != ""){
+        uE.getAddress().setAddress(addr);
+        }
+        if(type != ""){
+        uE.getAddress().setType(type);
+        }
+        em.merge(uE);
+        System.out.println(uE);
+        
+    }
 }
