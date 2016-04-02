@@ -49,7 +49,7 @@ public class LoginController {
 	}
 	@ResponseBody
 	@RequestMapping(path = "deleteUser", method = RequestMethod.POST)
-	public String deleteUser(@RequestBody userEntitie json)
+	public String deleteUser(@RequestBody String json)
 	{
 		return loginDao.deleteUser(json);
 	}

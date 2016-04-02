@@ -197,19 +197,21 @@ public class LoginDAO
 		return userDB;
 	}
 
-	public String deleteUser(userEntitie user)
+	public String deleteUser(String user)
 	{
-
-		userEntitie ue = em.find(userEntitie.class, user.getId());
+		String id =  user.split(",")[2].split(":")[1];
+		userEntitie ue = (userEntitie) em.createNamedQuery("getUserById").setParameter("id", id).getSingleResult();;
+		System.out.println(ue);
 		em.remove(ue);
-		userEntitie check = em.find(userEntitie.class, user.getId());
-		if (check == null)
-		{
-			return "delete account successful";
-		} else
-		{
-			return "delete account failed";
-		}
+		return "";
+		//userEntitie check = em.find(userEntitie.class, user.getId());
+//		if (check == null)
+//		{
+//			return "delete account successful";
+//		} else
+//		{
+//			return "delete account failed";
+//		}
 
 	}
 
