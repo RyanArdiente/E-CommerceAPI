@@ -1,6 +1,7 @@
 package controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.LoginDAO;
 import data.MCDAO;
+import data.ShoppingCartItemsEntitie;
 import data.addressEntitie;
 import data.productsEntitie;
+import data.testHolder;
 import data.userEntitie;
 
 
@@ -72,11 +75,21 @@ public class MyController {
 	
 	@ResponseBody
 	@RequestMapping(path = "cart/{id}", method = RequestMethod.GET)
-	public List<productsEntitie> getShoppingCartItems(@PathVariable String id)
+	public List<testHolder> getShoppingCartItems(@PathVariable String id)
 	{
-		System.out.println("Inside get shopping cart items controller method");
-		System.out.println("in get categories "+id);
-		return mcdao.getShoppingCartItems(id);
+		System.out.println("Inside get shopping cart items controller method for ID : " + id);
+		List<testHolder> cart = new ArrayList<>();
+		
+		List<ShoppingCartItemsEntitie> test= mcdao.getShoppingCartItems(id);
+		for(int i =0; i <test.size(); i ++)
+		{
+			
+			cart.add(new testHolder(i, test.get(i).getProducts_id(), test.get(i).getQuantity(), test.get(i).getShoppingCart_id()));
+		}
+		
+		
+		System.out.println("items found while in controller are:  "+cart);
+		return cart;
 	}
 	
 	@ResponseBody

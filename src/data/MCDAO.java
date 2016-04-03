@@ -74,14 +74,14 @@ public class MCDAO
 
 
 
-public  List<productsEntitie> getShoppingCartItems (String id) 
+public  List<ShoppingCartItemsEntitie> getShoppingCartItems (String id) 
 {
 	System.out.println("in dao for get shoppingcartItems and id is " + id);
 	userEntitie userID = (userEntitie)em.createNamedQuery("getUserById").setParameter("id", Integer.parseInt(id)).getSingleResult();
 //	em.merge(userID);
 	int ShoppingCartID = userID.getCart().getId();
-	System.out.println(userID.getCart().getProductsList());
-return userID.getCart().getProductsList();
+//	System.out.println(userID.getCart().getItems());
+return userID.getCart().getItems();
 }
 
 public void addToCart(String json){

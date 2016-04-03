@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,10 +42,10 @@ public class productsEntitie {
 	private String brand;
 	private String name;
 	
-	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "product_id", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<reviewEntitie> review = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "products_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "products_id", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	 @JsonManagedReference(value ="shopingCartItemsToProduct")
 	private List<ShoppingCartItemsEntitie> items;
 

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="shoppingcart")
+@NamedQueries({ @NamedQuery(name = "getALLShoppingCart", query = "select u from shoppingCartEntitie u"),
+	@NamedQuery(name = "getSCbyID", query = "select u from shoppingCartEntitie u where u.id = :id"),
+	@NamedQuery(name = "deleteSCbyID", query = "delete  from shoppingCartEntitie  where id = :id") })
 public class shoppingCartEntitie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +43,7 @@ public class shoppingCartEntitie {
 	@JsonBackReference(value ="ShoppingCartToProducts")
 	private List<productsEntitie> productsList = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "shoppingCart_id", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "shoppingCart_id", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference(value ="shopingCartItemsToShoppingCart")
 	private List<ShoppingCartItemsEntitie> items;
 	 

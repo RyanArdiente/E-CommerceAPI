@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class userEntitie {
 	@JsonBackReference(value="usertoaddress")
 	private addressEntitie address;
 	@JsonBackReference(value ="UserShoppingCart")
-	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user_id", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private shoppingCartEntitie cart;
 //	@JsonManagedReference
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
